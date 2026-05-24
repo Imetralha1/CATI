@@ -5,3 +5,4 @@
 *.db-shm
 /.vs
 /.vs
+.vs/slnx.sqlite

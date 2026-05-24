@@ -2,3 +2,5 @@
 /.vs
 .vs/CATI/CopilotIndices/17.14.670.39694/SemanticSymbols.db-wal
 /.vs
+*.db-shm
+/.vs

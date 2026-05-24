@@ -30,7 +30,6 @@
 		.then(r => r.json())
 		.then(menu => {
 
-			console.log("Menu loaded and built successfully.");
 			const currentPage = window.location.pathname.split("/").pop();
 			const path = findPath(menu, currentPage);
 			const marked = path ? markActive(menu, path) : menu;
@@ -40,8 +39,6 @@
 
 			const ul = buildMenu(marked);
 			nav.appendChild(ul);
-
-            console.log("Menu loaded and built successfully.");
 
 			initMenu();
 		});

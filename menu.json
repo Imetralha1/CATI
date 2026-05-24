@@ -1,0 +1,39 @@
+﻿[
+  {
+    "name": "nossa história",
+    "link": "nossa-historia.html"
+  },
+  {
+    "name": "notícias",
+    "link": "noticias.html"
+  },
+  {
+    "name": "atividades",
+    "children": [
+      { "name": "planificação", "link": "planificacao.html" },
+      { "name": "estação meteorológica", "link": "estacao-meteorologica.html" },
+      { "name": "clinostato", "link": "clinostato.html" },
+      { "name": "QAI", "link": "qai.html" },
+      { "name": "foguete de água", "link": "foguete-de-agua.html" },
+      { "name": "rocket", "link": "rocket.html" }
+    ]
+  },
+  {
+    "name": "projetos",
+    "children": [
+      { "name": "Isave", "link": "isave.html" },
+      { "name": "ROV", "link": "rov.html" },
+      {
+        "name": "limiar",
+        "children": [
+          { "name": "limiar1", "link": "limiar1.html" },
+          { "name": "limiar2", "link": "limiar2.html" },
+          { "name": "limiar3", "link": "limiar-3.html" }
+        ]
+      },
+      { "name": "roda de água", "link": "roda-de-agua.html" }
+    ]
+  },
+  { "name": "palestras", "link": "palestras.html" },
+  { "name": "estudos", "link": "estudos.html" }
+]

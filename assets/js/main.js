@@ -31,7 +31,7 @@
 		.then(menu => {
 
 			const currentPage = window.location.pathname.split("/").pop();
-            console.log("Current page:", currentPage);
+			console.log("Current page:", window.location.pathname);
 			const path = findPath(menu, currentPage);
 			console.log(menu)
 			const marked = path ? markActive(menu, path) : menu;

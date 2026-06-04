@@ -205,8 +205,6 @@ input, select, textarea {
 			margin-bottom: 0;
 		}
 
-	
-
 /* Container */
 
 	.container {
@@ -1744,7 +1742,6 @@ input, select, textarea {
 			top: 0;
 			width: 100%;
 			height: 100%;
-			background: url("images/overlay.png");
 			border-radius: 8px;
 		}
 
@@ -2576,6 +2573,13 @@ body{
 		border-bottom-width: 10px;
 		padding: 6em 0 6em 0;
 	}
+
+.subsection {
+	margin-top: 2.35em;
+	padding-top: 2.35em;
+	border-left: solid 2px #e7eae8;
+	padding-left: 2em;
+}
 
 /* Sidebar + Content */
 

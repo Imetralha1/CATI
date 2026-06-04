@@ -33,7 +33,6 @@
 			const currentPage =
 				window.location.pathname.split("/").pop() || "nossa-historia.html";
 			const path = findPath(menu, currentPage);
-			console.log(menu)
 			const marked = path ? markActive(menu, path) : menu;
 
 			const nav = document.getElementById("nav");
@@ -104,8 +103,6 @@ function findPath(items, target, path = []) {
 	for (const item of items) {
 
 		const currentPath = [...path, item];
-		console.log("Found path:", currentPath);
-        console.log("Checking item:", item.link, "against target:", target);
 		if (item.link === target) {
 
 			return currentPath;

@@ -27,13 +27,7 @@
         "name": "limiar",
         "children": [
           { "name": "limiar1", "link": "limiar1.html" },
-          {
-            "name": "limiar2", "link": "limiar2.html", "subnav": true,
-            "children": [
-              { "name": "Isave", "link": "isave.html" },
-              { "name": "ROV", "link": "rov.html" },         
-             ] 
-            },
+          { "name": "limiar2", "link": "limiar2.html" },
           { "name": "limiar3", "link": "limiar-3.html" }
         ]
       },

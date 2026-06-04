@@ -105,6 +105,7 @@ function findPath(items, target, path = []) {
 		const currentPath = [...path, item];
 
 		if (item.link === target) {
+            console.log("Found path:", currentPath);
 			return currentPath;
 		}
 

@@ -31,7 +31,7 @@
 		.then(menu => {
 
 			const currentPage =
-				window.location.pathname.split("/").pop() || "index.html";
+				window.location.pathname.split("/").pop() || "nossa-historia.html";
 			const path = findPath(menu, currentPage);
 			console.log(menu)
 			const marked = path ? markActive(menu, path) : menu;

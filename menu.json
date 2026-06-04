@@ -28,6 +28,7 @@
         "children": [
           { "name": "limiar1", "link": "limiar1.html" },
           { "name": "limiar2", "link": "limiar2.html" },
+          { "name": "limiar2.1", "link": "limiar2.1.html" },
           { "name": "limiar3", "link": "limiar-3.html" }
         ]
       },

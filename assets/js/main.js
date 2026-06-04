@@ -32,6 +32,7 @@
 
 			const currentPage = window.location.pathname.split("/").pop();
 			const path = findPath(menu, currentPage);
+			console.log(path)
 			const marked = path ? markActive(menu, path) : menu;
 
 			const nav = document.getElementById("nav");
@@ -42,7 +43,6 @@
 
 			initMenu();
 		});
-
 
 		function initMenu() {	
 			$nav = $('#nav');

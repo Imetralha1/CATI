@@ -106,7 +106,7 @@ function findPath(items, target, path = []) {
 		const currentPath = [...path, item];
 		console.log("Found path:", currentPath);
         console.log("Checking item:", item.link, "against target:", target);
-		if (item.link === target.split("/").pop()) {
+		if (item.link.split("/").pop() === target) {
 
 			return currentPath;
 		}

@@ -36,18 +36,21 @@
 			const subnavRoot = path ? path[path.length - 3] : null;
 			const marked = path ? markActive(menu, path) : menu;
 
-			const subnav = document.getElementById("subnav");
-			subnav.innerHTML = "";
-
-			if (subnavRoot && subnavRoot.children) {
-				subnav.appendChild(buildMenu(subnavRoot.children));
-			}
-
 			const nav = document.getElementById("nav");
 			nav.innerHTML = "";
 
 			const ul = buildMenu(marked);
 			nav.appendChild(ul);
+
+			const subnav = document.getElementById("subnav");
+
+			if (subnav) {
+				subnav.innerHTML = "";
+
+				if (subnavRoot && subnavRoot.children) {
+					subnav.appendChild(buildMenu(subnavRoot.children));
+				}
+			}
 
 			initMenu();
 		});

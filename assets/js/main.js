@@ -46,7 +46,7 @@
 		});
 
 		function initMenu() {	
-			$nav = $('#nav');
+			const $nav = $('#nav');
 
 
 		// Dropdowns.

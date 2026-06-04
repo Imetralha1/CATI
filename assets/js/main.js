@@ -30,8 +30,8 @@
 		.then(r => r.json())
 		.then(menu => {
 
-			const currentPage = window.location.pathname.split("/").pop();
-			console.log("Current page:", window.location.pathname.split("/").pop());
+			const currentPage =
+				window.location.pathname.split("/").pop() || "index.html";
 			const path = findPath(menu, currentPage);
 			console.log(menu)
 			const marked = path ? markActive(menu, path) : menu;
@@ -106,7 +106,7 @@ function findPath(items, target, path = []) {
 		const currentPath = [...path, item];
 		console.log("Found path:", currentPath);
         console.log("Checking item:", item.link, "against target:", target);
-		if (item.link.split("/").pop() === target) {
+		if (item.link === target) {
 
 			return currentPath;
 		}

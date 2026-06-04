@@ -33,6 +33,7 @@
 			const currentPage =
 				window.location.pathname.split("/").pop() || "nossa-historia.html";
 			const path = findPath(menu, currentPage);
+			const subnavRoot = path ? path[path.length - 2] : null;
 			const marked = path ? markActive(menu, path) : menu;
 
 			const nav = document.getElementById("nav");
@@ -41,16 +42,6 @@
 			const ul = buildMenu(marked);
 			nav.appendChild(ul);
 
-			let subnavRoot = null;
-
-			if (path) {
-				for (let i = path.length - 1; i >= 0; i--) {
-					if (path[i].subnav === true) {
-						subnavRoot = path[i];
-						break;
-					}
-				}
-			}
 			const subnav = document.getElementById("subnav");
 
 			if (subnav) {

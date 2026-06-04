@@ -33,8 +33,15 @@
 			const currentPage =
 				window.location.pathname.split("/").pop() || "nossa-historia.html";
 			const path = findPath(menu, currentPage);
-			console.log(menu)
+			const subnavRoot = path ? path[path.length - 3] : null;
 			const marked = path ? markActive(menu, path) : menu;
+
+			const subnav = document.getElementById("subnav");
+			subnav.innerHTML = "";
+
+			if (subnavRoot && subnavRoot.children) {
+				subnav.appendChild(buildMenu(subnavRoot.children));
+			}
 
 			const nav = document.getElementById("nav");
 			nav.innerHTML = "";
@@ -46,7 +53,7 @@
 		});
 
 		function initMenu() {	
-			$nav = $('#nav');
+			const $nav = $('#nav');
 
 
 		// Dropdowns.
@@ -104,8 +111,6 @@ function findPath(items, target, path = []) {
 	for (const item of items) {
 
 		const currentPath = [...path, item];
-		console.log("Found path:", currentPath);
-        console.log("Checking item:", item.link, "against target:", target);
 		if (item.link === target) {
 
 			return currentPath;
@@ -174,4 +179,6 @@ function nextSlide(){
 }
 
 // muda a cada 4 segundos
-setInterval(nextSlide, 4000);
+if (slides.length > 1) {
+	setInterval(nextSlide, 4000);
+}

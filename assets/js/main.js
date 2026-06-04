@@ -51,6 +51,15 @@
 					}
 				}
 			}
+			const subnav = document.getElementById("subnav");
+
+			if (subnav) {
+				subnav.innerHTML = "";
+
+				if (subnavRoot && subnavRoot.children) {
+					subnav.appendChild(buildMenu(subnavRoot.children));
+				}
+			}
 
 			initMenu();
 		});

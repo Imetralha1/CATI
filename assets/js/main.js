@@ -103,7 +103,8 @@ function findPath(items, target, path = []) {
 	for (const item of items) {
 
 		const currentPath = [...path, item];
-            console.log("Found path:", currentPath);
+		console.log("Found path:", currentPath);
+        console.log("Checking item:", item.link, "against target:", target);
 		if (item.link === target) {
 
 			return currentPath;

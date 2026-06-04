@@ -32,7 +32,7 @@
 
 			const currentPage = window.location.pathname.split("/").pop();
 			const path = findPath(menu, currentPage);
-			console.log(path)
+			console.log(menu)
 			const marked = path ? markActive(menu, path) : menu;
 
 			const nav = document.getElementById("nav");

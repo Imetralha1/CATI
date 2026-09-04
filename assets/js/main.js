@@ -26,12 +26,12 @@
 		});
 
 	// Load Menu.
-	fetch("menu.json")
+	fetch("../menu.json")
 		.then(r => r.json())
 		.then(menu => {
 
 			const currentPage =
-				window.location.pathname.split("/").pop() || "nossa-historia.html";
+				window.location.pathname.split("/").pop() || "index.html";
 			const path = findPath(menu, currentPage);
 			const marked = path ? markActive(menu, path) : menu;
 

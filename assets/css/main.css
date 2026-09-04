@@ -2446,6 +2446,12 @@ input, select, textarea {
 				background: #7B8780;
 			}
 
+			.dropotron li.current > a, .dropotron li.current > span {
+				color: #fff;
+/*				background: #7B8780;*/
+				font-size: 1.05em;
+			}
+
 			.dropotron li:first-child {
 				border-top: 0;
 			}

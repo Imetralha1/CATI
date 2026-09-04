@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limiar Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="./Images/dashboard.png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
+</head>
+<body class="bg-gray-100 text-gray-800 p-4">
+
+  <header class="text-center py-6">
+    <div class="flex justify-center items-center flex-wrap gap-4 mb-4">
+      <a href="https://aecarlosamarante.pt/" target="_blank">
+        <img src="./Images/CarlosAmarante.png" alt="Logo Carlos" class="h-16 hover:scale-105 transition duration-200">
+      </a>
+      <img src="./Images/Bernado.png" alt="Logo Bernardo" class="h-16 hover:scale-105 transition duration-200">
+      <img src="./Images/AFCH.png" alt="Logo Afch" class="h-16 hover:scale-105 transition duration-200">
+      <img src="./Images/ibd.png" alt="Logo IBD" class="h-16 hover:scale-105 transition duration-200">
+      <img src="./Images/LIP.png" alt="Logo LIP" class="h-16 hover:scale-105 transition duration-200">
+    </div>
+
+    <h1 class="text-3xl font-bold text-gray-800">Painel de Dados - LIMIAR</h1>
+  </header>
+
+
+  <div >
+    
+    <div class="flex justify-center gap-4 mb-6 ">
+      <button id="downloadCSV" class="hover:scale-105 transition duration-200 bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-xl shadow-md transition">
+        Exportar CSV
+      </button>
+      <button id="downloadMAP" class="hover:scale-105 transition duration-200 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl shadow-md">
+        Exportar MAP
+      </button>
+      <a href="information.html" target="_blank">
+        <img src="./Images/information.png" alt="Logo Info" class="h-11 hover:scale-105 transition duration-200">
+      </a>
+    </div>
+
+  </div>
+
+  <hr class="my-10 border-t-4 border-gray-300">
+  <h2 class="text-2xl font-bold mb-4">Painel de Controlo --
+      Status: <span id="statusText" class="text-yellow-500 font-bold" >Parado</span>
+        <div class="flex items-center">
+        <span class="mr-4 text-gray-700 font-bold text-lg">m/s</span>
+        <label class="relative inline-flex  cursor-pointer">
+          <input type="checkbox" id="meterMode" class="sr-only peer">
+        <div class="w-14 h-8 bg-gray-300 rounded-full peer peer-checked:bg-green-500 peer-checked:after:translate-x-full peer-checked:after:bg-white peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
+      </label>
+    </div>  
+      
+  </h2>
+  
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Temperatura Interior</h2>
+          <p id="tempValue" class="text-2xl">-- °C</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Humidade Interior</h2>
+          <p id="humidityValue" class="text-2xl">-- %</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Pressão Atmosférica</h2>
+          <p id="pressureValue" class="text-2xl">-- hPa</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Altitude</h2>
+          <p id="altitudeValue" class="text-2xl">-- m</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Latitude</h2>
+          <p id="latValue" class="text-2xl">--</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Longitude</h2>
+          <p id="lonValue" class="text-2xl">--</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Altitude GPS</h2>
+          <p id="altitudeGPSValue" class="text-2xl">-- m</p>
+      </div>  
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Distância  Percorrida</h2>
+          <p id="distanciaPercorrida" class="text-2xl">-- km</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Deslocamento</h2>
+          <p id="deslocamento" class="text-2xl">-- km</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Velocidade</h2>
+          <p id="vel" class="text-2xl">-- km/h</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Velocidade Média</h2>
+          <p id="velMed" class="text-2xl">-- km/h</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Aceleração (X, Y, Z)</h2>
+          <p id="accelX" class="text-2xl">-- m/s²</p>
+          <p id="accelY" class="text-2xl">-- m/s²</p>
+          <p id="accelZ" class="text-2xl">-- m/s²</p>
+      </div>
+      <div class="bg-white shadow rounded-xl p-4">
+          <h2 class="text-xl font-semibold">Giroscópio (X, Y, Z)</h2>
+          <p id="gyroX" class="text-2xl">-- °/s</p>
+          <p id="gyroY" class="text-2xl">-- °/s</p>
+          <p id="gyroZ" class="text-2xl">-- °/s</p>
+      </div>
+  </div>
+
+  <hr class="my-10 border-t-4 border-gray-300">
+  <h2 class="text-2xl font-bold mb-4">Gráficos</h2>
+  <div class="flex items-center">
+    <span class="mr-4 text-gray-700 font-bold text-lg">Limitar a 50 pontos:</span>
+    <label class="relative inline-flex items-center cursor-pointer">
+      <input type="checkbox" id="limitDataToggle" class="sr-only peer">
+      <div class="w-14 h-8 bg-gray-300 rounded-full peer peer-checked:bg-green-500 peer-checked:after:translate-x-full peer-checked:after:bg-white peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
+    </label>
+  </div>  
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-lg font-semibold mb-2">Temperatura Interior</h3>
+      <canvas id="tempChart"></canvas>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-lg font-semibold mb-2">Humidade Interior</h3>
+      <canvas id="humidityChart"></canvas>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-lg font-semibold mb-2">Pressão Atmosférica</h3>
+      <canvas id="pressureChart"></canvas>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-lg font-semibold mb-2">Altitude</h3>
+      <canvas id="altitudeChart"></canvas>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-lg font-semibold mb-2">Velocidade</h3>
+      <canvas id="velChart"></canvas>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-lg font-semibold mb-2">Altitude GPS</h3>
+      <canvas id="altitudeGPSChart"></canvas>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-lg font-semibold mb-2">Heading</h3>
+      <canvas id="headingChart"></canvas>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-lg font-semibold mb-2">Satélites</h3>
+      <canvas id="satellitesChart"></canvas>
+    </div>
+  </div>
+
+  <hr class="my-10 border-t-4 border-gray-300">
+  <h2 class="text-2xl font-bold mb-4 text-left">Localização em Tempo Real</h2>
+  <div id="map" class="w-full h-96 rounded-xl shadow-md"></div>
+  <hr class="my-10 border-t-4 border-gray-300">
+
+  <div class="mt-2 mb-4 px-2 flex justify-between items-center">
+    <div class="text-left space-x-4">
+      <label>
+        [ Made by <a href="https://github.com/EdroCode" target="_blank" class="text-blue-600 underline">Edro</a>, with help from <a href="https://github.com/SamBBret" target="_blank" class="text-blue-600 underline">Samuel Bret</a> ]
+      </label>
+      <span>Hora atual: <span id="clock">--:--:--</span></span>
+      <span>Tempo Decorrido: <span id="tempoDecorrido">--:--:--</span></span>
+    </div>
+  </div>
+
+
+  <script>
+
+    let limitDataPoints = false;
+    const MAX_DATA_POINTS = 50;
+    let METERMODE = false;
+    const now = (new Date()).toLocaleTimeString('en-GB');
+
+
+    document.getElementById('limitDataToggle').addEventListener('change', function() {
+      limitDataPoints = this.checked;
+      if (limitDataPoints) {
+        trimAllCharts();
+      }
+    });
+    
+    document.getElementById('meterMode').addEventListener('change', function() {
+      if (METERMODE === false) {
+
+
+
+        METERMODE = true;
+      } else {
+        METERMODE = false;
+      }
+    });
+
+    function trimAllCharts() {
+      const charts = [tempChart, humidityChart, pressureChart, altitudeChart, velChart, altitudeGPSChart, headingChart, satellitesChart];
+      charts.forEach(chart => {
+        if (chart.data.labels.length > MAX_DATA_POINTS) {
+          const excess = chart.data.labels.length - MAX_DATA_POINTS;
+          chart.data.labels.splice(0, excess);
+          chart.data.datasets[0].data.splice(0, excess);
+          chart.update();
+        }
+      });
+    }
+
+    const tempChart = new Chart(document.getElementById('tempChart'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Temperatura (°C)',
+          borderColor: 'rgb(255, 99, 132)',
+          data: []
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    const altitudeGPSChart = new Chart(document.getElementById('altitudeGPSChart'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Altitude GPS (m)',
+          borderColor: 'rgb(255, 58, 58)',
+          data: []
+        }]
+      },
+      options: { responsive: true }
+    });
+  
+    const humidityChart = new Chart(document.getElementById('humidityChart'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Humidade (%)',
+          borderColor: 'rgb(75, 192, 192)',
+          data: []
+        }]
+      },
+      options: { responsive: true }
+    });
+  
+    const pressureChart = new Chart(document.getElementById('pressureChart'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Pressão (hPa)', 
+          borderColor: 'rgb(36, 199, 36)',
+          data: []
+        }]
+      },
+      options: { responsive: true }
+    });
+  
+    const altitudeChart = new Chart(document.getElementById('altitudeChart'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Altitude (m)', 
+          borderColor: 'rgb(255, 182, 24)',
+          data: []
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    const velChart = new Chart(document.getElementById('velChart'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Velocidade (km/h)', 
+          borderColor: 'rgb(137, 93, 193)',
+          data: []
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    const headingChart = new Chart(document.getElementById('headingChart'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Heading (°)', 
+          borderColor: 'rgb(137, 93, 193)',
+          data: []
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    const satellitesChart = new Chart(document.getElementById('satellitesChart'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Satélites', 
+          borderColor: 'rgb(245, 151, 47)',
+          data: []
+        }]
+      },
+      options: { responsive: true }
+    });
+  
+    // MAP
+  
+    let pathCoords = [];
+    let pathLine = null; 
+    let lastTimestamp = null;
+  
+    const map = L.map('map').setView([-20.319968201007146, -40.33845612875748], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    const marker = L.marker([38.0, -9.0]).addTo(map).bindPopup("Satélite");
+  
+    var distance = 0
+
+    function updateMap(lat, lon) {
+      const newPoint = [lat, lon];
+      pathCoords.push(newPoint);
+  
+      if (pathLine) map.removeLayer(pathLine);
+      pathLine = L.polyline(pathCoords, { color: 'red' }).addTo(map);
+  
+      marker.setLatLng(newPoint);
+      map.setView(newPoint, map.getZoom());
+  
+
+
+    }
+  
+    function resetMap() {
+        pathCoords = [];
+  
+        if (pathLine) {
+            map.removeLayer(pathLine);
+            pathLine = null;
+        }
+    }
+  
+    function resetTrail() {
+    trail = [];
+  
+      if (trailLine) {
+          map.removeLayer(trailLine);
+          trailLine = null;
+      }      
+    }
+  
+
+    function downloadPath() {
+        if (pathCoords.length === 0) {
+            alert("No path data available to download!");
+            return;
+        }
+
+        alert("Para visualizar o ficheiro utilize um website para ler GEOJSON, como  geojson.io")
+
+        const geoJsonData = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "GPS Path",
+                        "description": "Recorded path coordinates"
+                    },
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": pathCoords.map(coord => [coord[1], coord[0]])
+                    }
+                }
+            ]
+        };
+
+        // Create the download
+        const blob = new Blob([JSON.stringify(geoJsonData, null, 2)], { 
+            type: 'application/geo+json' 
+        });
+        
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "path_data.geojson";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    
+  
+    function formatSeconds(totalSeconds) {
+      if (totalSeconds === null || totalSeconds === undefined) return "--:--:--";
+          
+        totalSeconds = Math.floor(Number(totalSeconds));
+        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    }
+
+
+    // DATA MANEGEMENT
+
+      function startDataUpdate() {
+        
+      pathCoords = [];
+
+      document.getElementById('statusText').textContent = "Atualizando...";
+      document.getElementById('statusText').classList.remove('text-yellow-500');
+      document.getElementById('statusText').classList.add('text-green-500');
+  
+      eventSource = new EventSource('http://samuel-bret-laptop:5000/stream'); 
+
+
+      function updateClock() {
+        const unformatednow = new Date();
+        const now = unformatednow.toLocaleTimeString('en-GB');
+        document.getElementById("clock").textContent = now;
+      }
+
+      updateClock(); 
+      setInterval(updateClock, 1000);
+
+
+      // Basicamente o Update
+      
+      eventSource.onmessage = function(event) {
+
+        // Atualiza o status visual para indicar que os dados estão sendo recebidos
+        document.getElementById('statusText').classList.remove('text-red-500');
+        document.getElementById('statusText').classList.add('text-green-500');
+        
+        
+        const data = JSON.parse(event.data);
+        if (data.gps_valid == 0){
+          data.latitude = null
+          data.longitude = null
+        }
+   
+        console.log(data);
+
+        // Function to handle null/undefined values
+        function getValueOrNull(value) {
+            return (value === null || value === undefined) ? null : value;
+        }
+
+        // Coleta os dados para processamento posterior
+        collectedData.push({
+          timestamp: getValueOrNull(data.time),
+          temperature: getValueOrNull(data.temperature),
+          humidity: getValueOrNull(data.humidity),
+          pressure: getValueOrNull(data.pressure),
+          altitude: getValueOrNull(data.altitude),
+
+          heading: getValueOrNull(data.heading),
+
+          accelX: getValueOrNull(data.accel_x),
+          accelY: getValueOrNull(data.accel_y),
+          accelZ: getValueOrNull(data.accel_z),
+          gyroX: getValueOrNull(data.gyro_x),
+          gyroY: getValueOrNull(data.gyro_y),
+          gyroZ: getValueOrNull(data.gyro_z),
+          
+          gps_valid: getValueOrNull(data.gps_valid),
+          latitude: getValueOrNull(data.latitude),
+          longitude: getValueOrNull(data.longitude),
+          altitude_gps: getValueOrNull(data.altitude_gps),
+          speed: getValueOrNull(data.speed),
+          satellites: getValueOrNull(data.satellites),
+          
+          total_distance: getValueOrNull(data.total_distance),
+          des: getValueOrNull(data.des),
+          vel_media: getValueOrNull(data.vel_media),
+          time_spent: getValueOrNull(data.time_spent),
+      });
+
+        // Função para atualizar gráficos com limitação de 100 pontos
+        function updateChart(chart, label, value) {
+          if (value === null) return;
+  
+          if (limitDataPoints && chart.data.labels.length >= MAX_DATA_POINTS) {
+            chart.data.labels.shift();
+            chart.data.datasets[0].data.shift();
+          }
+          chart.data.labels.push(label);
+          chart.data.datasets[0].data.push(value);
+          chart.update();
+        }
+        
+        // Atualiza os gráficos, limitando a 100 pontos (only non-null values)
+        if (data.temperature !== null && data.temperature !== undefined) updateChart(tempChart, now, data.temperature);
+        if (data.humidity !== null && data.humidity !== undefined) updateChart(humidityChart, now, data.humidity);
+        if (data.pressure !== null && data.pressure !== undefined) updateChart(pressureChart, now, data.pressure.toFixed(5));
+        if (data.altitude !== null && data.altitude !== undefined) updateChart(altitudeChart, now, data.altitude.toFixed(5));
+        if (data.heading !== null && data.heading !== undefined) updateChart(headingChart, now, data.heading);
+        if (data.gps_valid == 1) {
+          if (data.speed !== null && data.speed !== undefined) updateChart(velChart, now, data.speed.toFixed(1));
+          if (data.altitude_gps !== null && data.altitude_gps !== undefined) updateChart(altitudeGPSChart, now, data.altitude_gps.toFixed(1));
+          if (data.satellites !== null && data.satellites !== undefined) updateChart(satellitesChart, now, data.satellites);
+        }
+        
+        // Function to display value or "--" if null/undefined
+        function displayValue(elementId, value, unit = '') {
+            const element = document.getElementById(elementId);
+            if (value === null || value === undefined) {
+                element.textContent = `--${unit}`;
+            } else {
+                element.textContent = `${value}${unit}`;
+            }
+        }
+
+        document.getElementById('tempoDecorrido').textContent = formatSeconds(data.time);
+
+        displayValue('tempValue', data.temperature ?? null, ' °C');
+        displayValue('humidityValue', data.humidity ?? null, ' %');
+        displayValue('pressureValue', data.pressure != null ? data.pressure.toFixed(5) : null, ' hPa');
+        displayValue('altitudeValue', data.altitude ?? null, ' m');
+        
+        displayValue('accelX', data.accel_x != null ? data.accel_x.toFixed(3) + ' m/s²' : null);
+        displayValue('accelY', data.accel_y != null ? data.accel_y.toFixed(3) + ' m/s²' : null);
+        displayValue('accelZ', data.accel_z != null ? data.accel_z.toFixed(3) + ' m/s²' : null);
+        displayValue('gyroX', data.gyro_x != null ? data.gyro_x.toFixed(3) + ' °/s' : null);
+        displayValue('gyroY', data.gyro_y != null ? data.gyro_y.toFixed(3) + ' °/s' : null);
+        displayValue('gyroZ', data.gyro_z != null ? data.gyro_z.toFixed(3) + ' °/s' : null);
+
+        displayValue('latValue', data.latitude ?? null);
+        displayValue('lonValue', data.longitude ?? null);
+        displayValue('altitudeGPSValue', data.altitude_gps ?? null, ' m');
+
+        if (!METERMODE){
+          displayValue('distanciaPercorrida', data.total_distance != null ? (data.total_distance).toFixed(3) + ' km' : '-- km');
+          displayValue('deslocamento', data.des != null ? data.des.toFixed(2) + ' km' : '-- km');
+          displayValue('vel', data.speed != null ? (data.speed * 3.6).toFixed(2) + ' km/h' : '-- km/h');
+          displayValue('velMed', data.vel_media != null ? data.vel_media.toFixed(2) + ' km/h' : '-- km/h');
+        }
+        else{
+          displayValue('distanciaPercorrida', data.total_distance != null ? (data.total_distance * 1000).toFixed(3) + ' m' : '-- m');
+          displayValue('deslocamento', data.des != null ? (data.des*1000).toFixed(2) + ' m' : '-- m');
+          displayValue('vel', data.speed != null ? (data.speed).toFixed(2) + ' m/s' : '-- m/s');
+          displayValue('velMed', data.vel_media != null ? (data.vel_media / 3.6).toFixed(2) + ' m/s' : '-- m/s');
+        }
+          
+        // Atualiza o mapa com a nova localização (only if both lat and lon are valid)
+        if (data.latitude !== null && data.latitude !== undefined && 
+            data.longitude !== null && data.longitude !== undefined) {
+            updateMap(data.latitude, data.longitude);
+        }
+
+//        const piTemp = data.pi_temp;
+//       let tempColor = 'green'; // Default
+
+//        if (piTemp !== null && piTemp !== undefined) {
+//            if (piTemp > 75) {
+//                tempColor = 'red';
+//            } else if (piTemp > 60) {
+//                tempColor = 'rgb(255, 148, 0)';
+//            }
+//           document.getElementById('PIvalue').style.color = tempColor; // Change the color of the Pi temperature value
+//        } else {
+//            document.getElementById('PIvalue').style.color = ''; // Reset color if null
+//        }
+    };
+
+    eventSource.onerror = function() {
+      document.getElementById('statusText').textContent = "Erro na Conexão!";
+      document.getElementById('statusText').classList.remove('text-green-500');
+      document.getElementById('statusText').classList.add('text-red-500');
+      console.error("Error with the EventSource connection:", event);
+      stopDataUpdate(); 
+      // alert("Não foi possível conectar ao servidor. Verifique a conexão.");
+    };
+  }
+  
+  function stopDataUpdate() {
+    document.getElementById('statusText').classList.remove('text-green-500');
+    document.getElementById('statusText').classList.add('text-yellow-500');
+    if (eventSource) {
+      eventSource.close();
+      eventSource = null;
+    }
+  }
+  
+  function stop() {
+    document.getElementById('statusText').textContent = "Parado";
+    stopDataUpdate()
+  }
+  
+  function resetData() {
+    resetMap();
+    pathCoords = [];
+    
+    collectedData = [];
+    tempChart.data.labels = [];
+    tempChart.data.datasets[0].data = [];
+    humidityChart.data.labels = [];
+    humidityChart.data.datasets[0].data = [];
+    pressureChart.data.labels = [];
+    pressureChart.data.datasets[0].data = [];
+    altitudeChart.data.labels = [];
+    altitudeChart.data.datasets[0].data = [];    
+    altitudeGPSChart.data.labels = [];
+    altitudeGPSChart.data.datasets[0].data = [];
+    velChart.data.labels = [];
+    velChart.data.datasets[0].data = [];
+    headingChart.data.labels = [];
+    headingChart.data.datasets[0].data = [];
+    satellitesChart.data.labels = [];   
+    satellitesChart.data.datasets[0].data = [];
+
+
+
+    tempChart.update();
+    humidityChart.update();
+    pressureChart.update();
+    altitudeChart.update();
+    headingChart.update();
+  
+    velChart.update();
+    altitudeGPSChart.update();
+    satellitesChart.update();
+  
+    document.getElementById('distanciaPercorrida').textContent = "-- km";
+    document.getElementById('velMed').textContent = "-- km/h";
+    document.getElementById('vel').textContent = "-- km/h";
+    document.getElementById('deslocamento').textContent = "-- km";
+
+    document.getElementById('tempValue').textContent = "-- °C";
+    document.getElementById('humidityValue').textContent = "-- %";
+    document.getElementById('extTempValue').textContent = "-- °C";
+    document.getElementById('extHumidityValue').textContent = "-- %";
+    document.getElementById('pressureValue').textContent = "-- hPa";
+    document.getElementById('altitudeValue').textContent = "-- m";
+
+    document.getElementById('latValue').textContent = "--";
+    document.getElementById('lonValue').textContent = "--";
+    document.getElementById('altitudeGPSValue').textContent = "-- m";
+
+    document.getElementById('gyroX').textContent = "--";
+    document.getElementById('gyroY').textContent = "--";
+    document.getElementById('gyroZ').textContent = "--";
+    document.getElementById('accelX').textContent = "--";
+    document.getElementById('accelY').textContent = "--";
+    document.getElementById('accelZ').textContent = "--";
+  }
+  
+  // CSV EXPORTING
+  let eventSource = null;
+  let collectedData = [];
+  // DEPOIS ATUALIZAR ISTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Provavelmente nao e preciso ja que n vai haver site ao publico e podemos so recolher os dados no backend
+
+  function exportToCSV() {
+    try {
+        if (!collectedData || collectedData.length === 0) {
+            alert("No data available to export!");
+            return;
+        }
+
+        console.log("Preparing CSV export with", collectedData.length, "data points");
+
+        // Define all headers
+        const headers = [
+            'Timestamp',
+            'Temperature (°C)',
+            'Humidity (%)',
+            'External Temperature (°C)',
+            'External Humidity (%)',
+            'Pressure (hPa)',
+            'Altitude (m)',
+            'Latitude',
+            'Longitude',
+            'PI Temperature (°C)',
+            'UV (μW/cm²)',
+            'Ambient Light (lux)',
+            'UVI',
+            'Lux (lux)',
+            'CPM',
+            'Acceleration X (m/s²)',
+            'Acceleration Y (m/s²)',
+            'Acceleration Z (m/s²)',
+            'Gyroscope X (°/s)',
+            'Gyroscope Y (°/s)',
+            'Gyroscope Z (°/s)'
+        ];
+
+        // Prepare CSV content
+        let csvContent = headers.join(",") + "\r\n";
+        
+        collectedData.forEach(item => {
+            const row = [
+                item.timestamp || '',
+                formatNumber(item.temperature, 2),
+                formatNumber(item.humidity, 2),
+                formatNumber(item.external_temperature, 2),
+                formatNumber(item.external_humidity, 2),
+                formatNumber(item.pressure, 2),
+                formatNumber(item.altitude, 2),
+                item.latitude !== null && item.latitude !== undefined ? item.latitude : '',
+                item.longitude !== null && item.longitude !== undefined ? item.longitude : '',
+                formatNumber(item.pi_temp, 2),
+                formatNumber(item.uv, 2),
+                formatNumber(item.ambient_light, 2),
+                formatNumber(item.uvi, 2),
+                formatNumber(item.lux, 2),
+                formatNumber(item.cpm, 2),
+                formatNumber(item.accelX, 4),
+                formatNumber(item.accelY, 4),
+                formatNumber(item.accelZ, 4),
+                formatNumber(item.gyroX, 4),
+                formatNumber(item.gyroY, 4),
+                formatNumber(item.gyroZ, 4)
+            ];
+            csvContent += row.join(",") + "\r\n";
+        });
+
+        console.log("CSV content sample:", csvContent.substring(0, 200) + "...");
+
+        // Create download link
+        const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", `cansat_data_${new Date().toISOString().replace(/[:.]/g, "-")}.csv`);
+        
+        // Required for Firefox
+        document.body.appendChild(link);
+        
+        // Trigger download
+        link.click();
+        
+        // Cleanup
+        setTimeout(() => {
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }, 100);
+
+    } catch (error) {
+        console.error("Error exporting CSV:", error);
+        alert("Failed to export CSV: " + error.message);
+    }
+}
+
+// Helper function to format numbers safely
+function formatNumber(value, decimals) {
+    if (value === null || value === undefined) return '';
+    return Number(value).toFixed(decimals);
+}
+
+  startDataUpdate();
+  </script>
+  
+</body>
+</html>

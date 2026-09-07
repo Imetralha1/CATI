@@ -950,7 +950,8 @@
 				}
 			}
 
-			&.current a {
+			&.current a,
+			&.current span {
 				background: #b1ddab;
 				color: #fff;
 			}
@@ -994,6 +995,14 @@
 				> a, > span {
 					color: #fff;
 					background: #7B8780;
+				}
+			}
+
+			&.current {
+				> a, > span {
+					color: #fff;
+					background: #8ecb8c;
+					font-size: 1.05em;
 				}
 			}
 
@@ -1418,6 +1427,11 @@
 					color: rgba(255, 255, 255, 0.5);
 					border-top: solid 2px rgba(87, 93, 89, 0.15);
 					font-size: 0.8em;
+
+					&.current {
+						background: #0064FF;
+						color: #fff;
+					}
 
 					&:first-child {
 						border-top: 0;

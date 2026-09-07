@@ -99,6 +99,10 @@
 const slides = document.querySelectorAll('.banner .slide');
 let index = 0;
 
+if (slides.length > 0) {
+	setInterval(nextSlide, 4000);
+}
+
 function findPath(items, target, path = []) {
 	for (const item of items) {
 
@@ -119,12 +123,11 @@ function findPath(items, target, path = []) {
 
 function markActive(items, path) {
 	return items.map(item => {
-
-		const isActive = path.includes(item);
-
+		const isCurrent = path.includes(item);
 		const newItem = {
 			...item,
-			active: isActive
+			current: isCurrent,
+			active: isCurrent
 		};
 
 		if (item.children) {
@@ -141,7 +144,7 @@ function buildMenu(items) {
 	items.forEach(item => {
 		const li = document.createElement("li");
 
-		if (item.active) {
+		if (item.current || item.active) {
 			li.classList.add("current");
 		}
 
@@ -162,13 +165,12 @@ function buildMenu(items) {
 }
 
 function nextSlide(){
-  slides[index].classList.remove('active'); // esconde a atual
+  if (!slides || slides.length === 0) return;
+
+  slides[index].classList.remove('active');
   index++;
   if(index >= slides.length){
-    index = 0; // volta para a primeira
+    index = 0;
   }
-  slides[index].classList.add('active'); // mostra a próxima
+  slides[index].classList.add('active');
 }
-
-// muda a cada 4 segundos
-setInterval(nextSlide, 4000);

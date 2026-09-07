@@ -2403,7 +2403,7 @@ input, select, textarea {
 				color: #fff;
 			}
 
-			#nav li.current a {
+			#nav li.current a, #nav li.current span {
 				background: #0064FF;
 				color: #fff;
 			}
@@ -2448,7 +2448,7 @@ input, select, textarea {
 
 			.dropotron li.current > a, .dropotron li.current > span {
 				color: #fff;
-/*				background: #7B8780;*/
+				background: #7B8780;
 				font-size: 1.05em;
 			}
 
@@ -2929,6 +2929,11 @@ body{
 					border-top: solid 2px #575d5926;
 					font-size: 0.8em;
 				}
+
+					#navPanel .link.current {
+						background: #0064FF;
+						color: #fff;
+					}
 
 					#navPanel .link:first-child {
 						border-top: 0;

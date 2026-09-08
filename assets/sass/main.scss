@@ -1267,6 +1267,13 @@
 		display: none;
 	}
 
+	body.navPanel-visible {
+		#navPanel,
+		#titleBar {
+			display: block;
+		}
+	}
+
 	@include breakpoint('<=medium') {
 
 		/* Basic */
@@ -1435,6 +1442,21 @@
 
 					&:first-child {
 						border-top: 0;
+					}
+				}
+
+				nav {
+					ul {
+						display: none;
+						margin: 0;
+						padding: 0;
+						list-style: none;
+					}
+
+					li.current > ul,
+					li.active > ul,
+					li:hover > ul {
+						display: block;
 					}
 				}
 

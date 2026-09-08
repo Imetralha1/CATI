@@ -75,24 +75,62 @@
 
 			// Panel.
 	
-			$(
-					'<div id="navPanel">' +
-						'<nav>' +
-							$('#nav').navList() +
-						'</nav>' +
-					'</div>'
-			)
-					.appendTo($body)
-					.panel({
-						delay: 500,
-						hideOnClick: true,
-						hideOnSwipe: true,
-						resetScroll: true,
-						resetForms: true,
-						side: 'left',
-						target: $body,
-						visibleClass: 'navPanel-visible'
-					});
+			var $navPanel = $(
+					'<div id="navPanel"><nav></nav></div>'
+			);
+
+			var $navList = $('#nav > ul').first().clone();
+			$navPanel.find('nav').append($navList);
+
+			$navPanel
+				.appendTo($body)
+				.panel({
+					delay: 500,
+					hideOnClick: true,
+					hideOnSwipe: true,
+					resetScroll: true,
+					resetForms: true,
+					side: 'left',
+					target: $body,
+					visibleClass: 'navPanel-visible'
+				});
+
+			function openCurrentBranch() {
+				var $currents = $navPanel.find('li.current');
+
+				$currents.each(function() {
+					var $node = $(this);
+
+					while ($node.length) {
+						$node.addClass('active');
+						$node.children('ul').show();
+						$node = $node.parents('li').first();
+					}
+				});
+			}
+
+			openCurrentBranch();
+
+			$navPanel.on('click', 'li:has(ul) > a', function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+
+				var $li = $(this).closest('li');
+				var $submenu = $li.children('ul');
+				var isOpen = $li.hasClass('active') && $submenu.is(':visible');
+				var $parentBranch = $li.parents('li').first();
+
+				if ($parentBranch.length) {
+					$parentBranch.siblings('li').find('ul').hide();
+					$parentBranch.siblings('li').find('ul').parent('li').removeClass('active');
+				}
+
+				$li.siblings('li').find('ul').hide();
+				$li.siblings('li').find('ul').parent('li').removeClass('active');
+
+				$li.toggleClass('active', !isOpen);
+				$submenu.toggle(!isOpen);
+			});
 		}
 
 })(jQuery);
@@ -100,7 +138,18 @@ const slides = document.querySelectorAll('.banner .slide');
 let index = 0;
 
 if (slides.length > 0) {
-	setInterval(nextSlide, 4000);
+	setInterval(function() {
+		if (!slides || slides.length === 0)
+			return;
+
+		if (slides[index])
+			slides[index].classList.remove('active');
+
+		index = (index + 1) % slides.length;
+
+		if (slides[index])
+			slides[index].classList.add('active');
+	}, 4000);
 }
 
 function findPath(items, target, path = []) {
@@ -165,12 +214,14 @@ function buildMenu(items) {
 }
 
 function nextSlide(){
-  if (!slides || slides.length === 0) return;
+  if (!slides || slides.length === 0)
+    return;
 
-  slides[index].classList.remove('active');
-  index++;
-  if(index >= slides.length){
-    index = 0;
-  }
-  slides[index].classList.add('active');
+  if (slides[index])
+    slides[index].classList.remove('active');
+
+  index = (index + 1) % slides.length;
+
+  if (slides[index])
+    slides[index].classList.add('active');
 }

@@ -2734,6 +2734,11 @@ body{
 		display: none;
 	}
 
+	body.navPanel-visible #navPanel,
+	body.navPanel-visible #titleBar {
+		display: block;
+	}
+
 	@media screen and (max-width: 980px) {
 
 		/* Basic */
@@ -2917,27 +2922,76 @@ body{
 					z-index: 1000;
 				}
 
-				#navPanel .link {
+				#navPanel nav ul,
+				#navPanel nav li {
+					margin: 0;
+					padding: 0;
+					list-style: none;
+				}
+
+				#navPanel nav > ul,
+				#navPanel nav ul {
 					display: block;
-					color: inherit;
+				}
+
+				#navPanel nav a {
+					display: block;
+					color: rgba(255, 255, 255, 0.5);
 					text-decoration: none;
 					height: 44px;
 					line-height: 44px;
 					padding: 0 1em 0 1em;
-					color: #888;
-					color: rgba(255, 255, 255, 0.5);
 					border-top: solid 2px #575d5926;
 					font-size: 0.8em;
+					font-family: 'Open Sans Condensed', sans-serif;
+					font-weight: 700;
+					text-transform: uppercase;
 				}
 
-					#navPanel .link.current {
-						background: #0064FF;
-						color: #fff;
-					}
+				#navPanel nav li {
+					position: relative;
+				}
 
-					#navPanel .link:first-child {
-						border-top: 0;
-					}
+				#navPanel nav li > ul {
+					display: none;
+					position: static !important;
+					left: auto !important;
+					top: auto !important;
+					margin: 0;
+					padding: 0 0 0 1em;
+					background: transparent;
+					box-shadow: none;
+					min-width: 0;
+					border-radius: 0;
+					opacity: 0;
+					transform: translateY(-4px);
+					transition: opacity 0.2s ease, transform 0.2s ease;
+				}
+
+				#navPanel nav li.active > ul,
+				#navPanel nav li.current > ul,
+				#navPanel nav li:hover > ul {
+					display: block;
+					opacity: 1;
+					transform: translateY(0);
+				}
+
+				#navPanel nav li > ul > li > a {
+					padding-left: 2em;
+				}
+
+				#navPanel nav a:hover,
+				#navPanel nav li:hover > a,
+				#navPanel nav a.current,
+				#navPanel nav li.current > a {
+					background: #0064FF;
+					color: #fff;
+				}
+
+				#navPanel nav a:first-child,
+				#navPanel nav > ul > li > a:first-child {
+					border-top: 0;
+				}
 
 				#navPanel .indent-1 {
 					display: inline-block;

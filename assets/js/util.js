@@ -6,33 +6,29 @@
 	 */
 	$.fn.navList = function() {
 
-		var	$this = $(this);
-			$a = $this.find('a'),
-			b = [];
+		var $clone = $(this).clone();
 
-		$a.each(function() {
+		$clone.find('li').each(function() {
 
-			var	$this = $(this),
-				$li = $this.closest('li'),
-				indent = Math.max(0, $this.parents('li').length - 1),
-				href = $this.attr('href'),
-				target = $this.attr('target'),
-				isCurrent = $this.hasClass('current') || $li.hasClass('current') || $li.hasClass('active');
+			var $li = $(this),
+				$a = $li.children('a').first(),
+				indent = Math.max(0, $li.parents('li').length - 1),
+				isCurrent = $li.hasClass('current') || $li.hasClass('active') || $li.find('li.current').length > 0;
 
-			b.push(
-				'<a ' +
-					'class="link depth-' + indent + (isCurrent ? ' current' : '') + '"' +
-					( (typeof target !== 'undefined' && target != '') ? ' target="' + target + '"' : '') +
-					( (typeof href !== 'undefined' && href != '') ? ' href="' + href + '"' : '') +
-				'>' +
-					'<span class="indent-' + indent + '"></span>' +
-					$this.text() +
-				'</a>'
-			);
+			if (!$a.length)
+				return;
+
+			$a.attr('class', 'link depth-' + indent + (isCurrent ? ' current' : ''));
+
+			if (!$a.children('.indent-' + indent).length)
+				$a.prepend('<span class="indent-' + indent + '"></span>');
+
+			if ($li.children('ul').length > 0)
+				$li.children('ul').first().addClass('sub-menu');
 
 		});
 
-		return b.join('');
+		return $clone.html();
 
 	};
 

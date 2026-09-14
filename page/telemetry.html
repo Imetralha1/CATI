@@ -6,166 +6,449 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, userscalable=no">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../assets/css/main.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  
+  <style>
+    body {
+      background: #f0f1f5;
+      color: #1f2a37;
+    }
+
+    #page-wrapper {
+      min-height: 100vh;
+      background: #efeff5;
+    }
+
+    .telemetry-shell {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 1.25em 1.2em 3em;
+    }
+
+    .telemetry-header {
+      text-align: center;
+      margin: 0.75em 0 1.2em;
+      padding-top: 0.5em;
+    }
+
+    .telemetry-header h1 {
+      margin: 0;
+      color: #1a2b3d;
+      font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .telemetry-brand-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .telemetry-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      max-width: 150px;
+      filter: saturate(1.15) contrast(1.08);
+    }
+
+    .telemetry-brand img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: clamp(44px, 4vw, 74px);
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.09));
+    }
+
+    .telemetry-toolbar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 0 0 1.2em;
+    }
+
+    .telemetry-toolbar .button {
+      background: #f2f4f7;
+      border: 1px solid #dfe7ef;
+      color: #1f2a37;
+      border-radius: 8px;
+      font-weight: 700;
+      box-shadow: none;
+      min-width: 8rem;
+    }
+
+    .telemetry-toolbar .button:hover {
+      background: #e9f0ff;
+      color: #173b64;
+    }
+
+    .telemetry-toolbar .button.alt {
+      background: #f2f4f7;
+      color: #1f2a37;
+      box-shadow: none;
+      border: 1px solid #dfe7ef;
+    }
+
+    .telemetry-panel {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+      padding: 1.25rem;
+      border: 1px solid #dfe7ef;
+    }
+
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .metric-card {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.1);
+      padding: 1rem;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .metric-card h2,
+    .metric-card h3,
+    .chart-card h3 {
+      margin: 0 0 0.45em;
+      font-size: 1.25em;
+      font-weight: 700;
+      color: #1a2b3d;
+    }
+
+    .metric-card p {
+      margin: 0;
+      font-size: clamp(1.2rem, 1.7vw, 2.3rem);
+      font-weight: 200;
+      color: #1f2a37;
+      line-height: 1.15;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .chart-card {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.1);
+      padding: 1rem;
+    }
+
+    .chart-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .chart-card canvas {
+      width: 100% !important;
+      display: block;
+      background: #fff;
+    }
+
+    .telemetry-status-bar {
+      display: block;
+      margin: 0.5rem 0 1.25rem;
+      color: #1a2b3d;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+
+    .telemetry-status-bar > .status-row {
+      margin-top: 0.55rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      vertical-align: middle;
+    }
+
+    .status-row .unit-label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a2b3d;
+      margin-right: 0.25rem;
+    }
+
+    .status-row .toggle-wrap,
+    .telemetry-subtoggle .toggle-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      width: 3.25rem;
+      height: 1.9rem;
+      cursor: pointer;
+    }
+
+    .toggle-slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #dfe7ef;
+      border-radius: 999px;
+      border: 1px solid #c8d4e2;
+      transition: background 0.2s ease;
+      box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.08);
+    }
+
+    .toggle-slider::after {
+      content: "";
+      position: absolute;
+      top: 0.1rem;
+      left: 0.1rem;
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #cad5e2;
+      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.12);
+      transition: transform 0.2s ease;
+    }
+
+    input[type="checkbox"]:checked + .toggle-slider {
+      background: #1f9d55;
+      border-color: #1b8d4f;
+    }
+
+    input[type="checkbox"]:checked + .toggle-slider::after {
+      transform: translateX(1.35rem);
+    }
+
+    #map {
+      width: 100%;
+      height: 24rem;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #dfe7ef;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+      background: #fff;
+    }
+
+    .telemetry-section-title {
+      margin: 0 0 1rem;
+      color: #1a2b3d;
+      font-size: clamp(1.4rem, 1.8vw, 2rem);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .telemetry-subtoggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0.5rem 0 1rem;
+      color: #1a2b3d;
+      font-weight: 700;
+    }
+
+    @media (min-width: 768px) {
+      .chart-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .telemetry-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .telemetry-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 736px) {
+      .telemetry-shell {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
+
+      .telemetry-brand {
+        max-width: 86px;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800 p-4">
+<body class="homepage is-preload">
+  <div id="page-wrapper">
 
   <!-- Nav -->
   <nav id="nav"></nav>
 
-  <header class="text-center py-6">
-    <div class="flex justify-center items-center flex-wrap gap-4 mb-4">
-      <a href="https://aecarlosamarante.pt/" target="_blank">
-        <img src="./Images/CarlosAmarante.png" alt="Logo Carlos" class="h-16 hover:scale-105 transition duration-200">
+  <header class="telemetry-header">
+    <div class="telemetry-brand-row">
+      <a href="https://aecarlosamarante.pt/" target="_blank" class="telemetry-brand">
+        <img src="../images/telemetry/CarlosAmarante.png" alt="Logo Carlos">
       </a>
-      <img src="./Images/Bernado.png" alt="Logo Bernardo" class="h-16 hover:scale-105 transition duration-200">
-      <img src="./Images/AFCH.png" alt="Logo Afch" class="h-16 hover:scale-105 transition duration-200">
-      <img src="./Images/ibd.png" alt="Logo IBD" class="h-16 hover:scale-105 transition duration-200">
-      <img src="./Images/LIP.png" alt="Logo LIP" class="h-16 hover:scale-105 transition duration-200">
+      <span class="telemetry-brand"><img src="../images/telemetry/Bernado.png" alt="Logo Bernardo"></span>
+      <span class="telemetry-brand"><img src="../images/telemetry/AFCH.png" alt="Logo Afch"></span>
+      <span class="telemetry-brand"><img src="../images/telemetry/ibd.png" alt="Logo IBD"></span>
+      <span class="telemetry-brand"><img src="../images/telemetry/LIP.png" alt="Logo LIP"></span>
     </div>
 
-    <h1 class="text-3xl font-bold text-gray-800">Painel de Dados - LIMIAR</h1>
+    <h1 class="telemetry-page-title">Painel de Dados - LIMIAR</h1>
   </header>
 
 
-  <div >
-    
-    <div class="flex justify-center gap-4 mb-6 ">
-      <button id="downloadCSV" class="hover:scale-105 transition duration-200 bg-blue-400 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-xl shadow-md transition">
+  <div class="telemetry-shell">
+    <div class="telemetry-toolbar">
+      <button id="downloadCSV" class="button alt small">
         Exportar CSV
       </button>
-      <button id="downloadMAP" class="hover:scale-105 transition duration-200 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl shadow-md">
+      <button id="downloadMAP" class="button special small">
         Exportar MAP
       </button>
-      <a href="information.html" target="_blank">
-        <img src="./Images/information.png" alt="Logo Info" class="h-11 hover:scale-105 transition duration-200">
+      <a href="information.html" target="_blank" class="button alt small icon solid fa-info-circle">
+        Informação
       </a>
     </div>
 
+  <hr style="border-top: 4px solid #0064FF; margin: 2.5rem 0; opacity: 0.9;">
+  <h2 class="telemetry-section-title">Painel de Controlo</h2>
+  <div class="telemetry-status-bar">
+    <span>Status: <span id="statusText" class="text-yellow-500 font-bold">Parado</span></span>
   </div>
-
-  <hr class="my-10 border-t-4 border-gray-300">
-  <h2 class="text-2xl font-bold mb-4">Painel de Controlo --
-      Status: <span id="statusText" class="text-yellow-500 font-bold" >Parado</span>
-        <div class="flex items-center">
-        <span class="mr-4 text-gray-700 font-bold text-lg">m/s</span>
-        <label class="relative inline-flex  cursor-pointer">
-          <input type="checkbox" id="meterMode" class="sr-only peer">
-        <div class="w-14 h-8 bg-gray-300 rounded-full peer peer-checked:bg-green-500 peer-checked:after:translate-x-full peer-checked:after:bg-white peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
+  <div class="telemetry-status-bar">
+    <div class="status-row">
+      <span id="speedUnitLabel" class="unit-label">m/s</span>
+      <label class="toggle-wrap">
+        <input type="checkbox" id="meterMode" class="sr-only peer">
+        <div class="toggle-slider"></div>
       </label>
-    </div>  
-      
-  </h2>
+    </div>
+  </div>
   
-  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Temperatura Interior</h2>
-          <p id="tempValue" class="text-2xl">-- °C</p>
+  <div class="telemetry-grid">
+      <div class="metric-card">
+          <h2>Temperatura Interior</h2>
+          <p id="tempValue">-- °C</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Humidade Interior</h2>
-          <p id="humidityValue" class="text-2xl">-- %</p>
+      <div class="metric-card">
+          <h2>Humidade Interior</h2>
+          <p id="humidityValue">-- %</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Pressão Atmosférica</h2>
-          <p id="pressureValue" class="text-2xl">-- hPa</p>
+      <div class="metric-card">
+          <h2>Pressão Atmosférica</h2>
+          <p id="pressureValue">-- hPa</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Altitude</h2>
-          <p id="altitudeValue" class="text-2xl">-- m</p>
+      <div class="metric-card">
+          <h2>Altitude</h2>
+          <p id="altitudeValue">-- m</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Latitude</h2>
-          <p id="latValue" class="text-2xl">--</p>
+      <div class="metric-card">
+          <h2>Latitude</h2>
+          <p id="latValue">--</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Longitude</h2>
-          <p id="lonValue" class="text-2xl">--</p>
+      <div class="metric-card">
+          <h2>Longitude</h2>
+          <p id="lonValue">--</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Altitude GPS</h2>
-          <p id="altitudeGPSValue" class="text-2xl">-- m</p>
+      <div class="metric-card">
+          <h2>Altitude GPS</h2>
+          <p id="altitudeGPSValue">-- m</p>
       </div>  
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Distância  Percorrida</h2>
-          <p id="distanciaPercorrida" class="text-2xl">-- km</p>
+      <div class="metric-card">
+          <h2>Distância  Percorrida</h2>
+          <p id="distanciaPercorrida">-- km</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Deslocamento</h2>
-          <p id="deslocamento" class="text-2xl">-- km</p>
+      <div class="metric-card">
+          <h2>Deslocamento</h2>
+          <p id="deslocamento">-- km</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Velocidade</h2>
-          <p id="vel" class="text-2xl">-- km/h</p>
+      <div class="metric-card">
+          <h2>Velocidade</h2>
+          <p id="vel">-- m/s</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Velocidade Média</h2>
-          <p id="velMed" class="text-2xl">-- km/h</p>
+      <div class="metric-card">
+          <h2>Velocidade Média</h2>
+          <p id="velMed">-- m/s</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Aceleração (X, Y, Z)</h2>
-          <p id="accelX" class="text-2xl">-- m/s²</p>
-          <p id="accelY" class="text-2xl">-- m/s²</p>
-          <p id="accelZ" class="text-2xl">-- m/s²</p>
+      <div class="metric-card">
+          <h2>Aceleração (X, Y, Z)</h2>
+          <p id="accelX">-- m/s²</p>
+          <p id="accelY">-- m/s²</p>
+          <p id="accelZ">-- m/s²</p>
       </div>
-      <div class="bg-white shadow rounded-xl p-4">
-          <h2 class="text-xl font-semibold">Giroscópio (X, Y, Z)</h2>
-          <p id="gyroX" class="text-2xl">-- °/s</p>
-          <p id="gyroY" class="text-2xl">-- °/s</p>
-          <p id="gyroZ" class="text-2xl">-- °/s</p>
+      <div class="metric-card">
+          <h2>Giroscópio (X, Y, Z)</h2>
+          <p id="gyroX">-- °/s</p>
+          <p id="gyroY">-- °/s</p>
+          <p id="gyroZ">-- °/s</p>
       </div>
   </div>
 
-  <hr class="my-10 border-t-4 border-gray-300">
-  <h2 class="text-2xl font-bold mb-4">Gráficos</h2>
-  <div class="flex items-center">
-    <span class="mr-4 text-gray-700 font-bold text-lg">Limitar a 50 pontos:</span>
-    <label class="relative inline-flex items-center cursor-pointer">
+  <hr style="border-top: 4px solid #0064FF; margin: 2.5rem 0; opacity: 0.9;">
+  <h2 class="telemetry-section-title">Gráficos</h2>
+  <div class="telemetry-subtoggle">
+    <span>Limitar a 50 pontos:</span>
+    <label class="toggle-wrap">
       <input type="checkbox" id="limitDataToggle" class="sr-only peer">
-      <div class="w-14 h-8 bg-gray-300 rounded-full peer peer-checked:bg-green-500 peer-checked:after:translate-x-full peer-checked:after:bg-white peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all"></div>
+      <div class="toggle-slider"></div>
     </label>
-  </div>  
-  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-lg font-semibold mb-2">Temperatura Interior</h3>
+  </div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>Temperatura Interior</h3>
       <canvas id="tempChart"></canvas>
     </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-lg font-semibold mb-2">Humidade Interior</h3>
+    <div class="chart-card">
+      <h3>Humidade Interior</h3>
       <canvas id="humidityChart"></canvas>
     </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-lg font-semibold mb-2">Pressão Atmosférica</h3>
+    <div class="chart-card">
+      <h3>Pressão Atmosférica</h3>
       <canvas id="pressureChart"></canvas>
     </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-lg font-semibold mb-2">Altitude</h3>
+    <div class="chart-card">
+      <h3>Altitude</h3>
       <canvas id="altitudeChart"></canvas>
     </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-lg font-semibold mb-2">Velocidade</h3>
+    <div class="chart-card">
+      <h3>Velocidade</h3>
       <canvas id="velChart"></canvas>
     </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-lg font-semibold mb-2">Altitude GPS</h3>
+    <div class="chart-card">
+      <h3>Altitude GPS</h3>
       <canvas id="altitudeGPSChart"></canvas>
     </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-lg font-semibold mb-2">Heading</h3>
+    <div class="chart-card">
+      <h3>Heading</h3>
       <canvas id="headingChart"></canvas>
     </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-lg font-semibold mb-2">Satélites</h3>
+    <div class="chart-card">
+      <h3>Satélites</h3>
       <canvas id="satellitesChart"></canvas>
     </div>
   </div>
 
   <hr class="my-10 border-t-4 border-gray-300">
   <h2 class="text-2xl font-bold mb-4 text-left">Localização em Tempo Real</h2>
-  <div id="map" class="w-full h-96 rounded-xl shadow-md"></div>
+  <div id="map"></div>
   <hr class="my-10 border-t-4 border-gray-300">
 
   <div class="mt-2 mb-4 px-2 flex justify-between items-center">
@@ -179,13 +462,13 @@
   </div>
 
     <!-- Scripts -->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/jquery.dropotron.min.js"></script>
-  <script src="assets/js/jquery.scrolly.min.js"></script>
-  <script src="assets/js/browser.min.js"></script>
-  <script src="assets/js/breakpoints.min.js"></script>
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/jquery.dropotron.min.js"></script>
+  <script src="../assets/js/jquery.scrolly.min.js"></script>
+  <script src="../assets/js/browser.min.js"></script>
+  <script src="../assets/js/breakpoints.min.js"></script>
+  <script src="../assets/js/util.js"></script>
+  <script src="../assets/js/main.js"></script>
 
 
   <script>
@@ -193,8 +476,35 @@
     let limitDataPoints = false;
     const MAX_DATA_POINTS = 50;
     let METERMODE = false;
+    let lastSpeedValues = { speed: null, velMedia: null };
     const now = (new Date()).toLocaleTimeString('en-GB');
 
+    function updateSpeedDisplay() {
+      const speedLabel = document.getElementById('speedUnitLabel');
+      if (speedLabel) {
+        speedLabel.textContent = METERMODE ? 'km/h' : 'm/s';
+      }
+
+      const speedDisplay = document.getElementById('vel');
+      if (speedDisplay) {
+        if (lastSpeedValues.speed === null || lastSpeedValues.speed === undefined) {
+          speedDisplay.textContent = METERMODE ? '-- km/h' : '-- m/s';
+        } else {
+          const value = METERMODE ? (Number(lastSpeedValues.speed) * 3.6).toFixed(2) : Number(lastSpeedValues.speed).toFixed(2);
+          speedDisplay.textContent = `${value} ${METERMODE ? 'km/h' : 'm/s'}`;
+        }
+      }
+
+      const averageDisplay = document.getElementById('velMed');
+      if (averageDisplay) {
+        if (lastSpeedValues.velMedia === null || lastSpeedValues.velMedia === undefined) {
+          averageDisplay.textContent = METERMODE ? '-- km/h' : '-- m/s';
+        } else {
+          const value = METERMODE ? (Number(lastSpeedValues.velMedia) * 3.6).toFixed(2) : Number(lastSpeedValues.velMedia).toFixed(2);
+          averageDisplay.textContent = `${value} ${METERMODE ? 'km/h' : 'm/s'}`;
+        }
+      }
+    }
 
     document.getElementById('limitDataToggle').addEventListener('change', function() {
       limitDataPoints = this.checked;
@@ -204,14 +514,8 @@
     });
     
     document.getElementById('meterMode').addEventListener('change', function() {
-      if (METERMODE === false) {
-
-
-
-        METERMODE = true;
-      } else {
-        METERMODE = false;
-      }
+      METERMODE = this.checked;
+      updateSpeedDisplay();
     });
 
     function trimAllCharts() {
@@ -226,109 +530,77 @@
       });
     }
 
-    const tempChart = new Chart(document.getElementById('tempChart'), {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Temperatura (°C)',
-          borderColor: 'rgb(255, 99, 132)',
-          data: []
-        }]
-      },
-      options: { responsive: true }
-    });
+    function formatChartTime(value) {
+      const totalSeconds = Number(value) || 0;
+      const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+      const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+      const seconds = String(Math.floor(totalSeconds % 60)).padStart(2, '0');
+      return `${hours}:${minutes}:${seconds}`;
+    }
 
-    const altitudeGPSChart = new Chart(document.getElementById('altitudeGPSChart'), {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Altitude GPS (m)',
-          borderColor: 'rgb(255, 58, 58)',
-          data: []
-        }]
-      },
-      options: { responsive: true }
-    });
-  
-    const humidityChart = new Chart(document.getElementById('humidityChart'), {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Humidade (%)',
-          borderColor: 'rgb(75, 192, 192)',
-          data: []
-        }]
-      },
-      options: { responsive: true }
-    });
-  
-    const pressureChart = new Chart(document.getElementById('pressureChart'), {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Pressão (hPa)', 
-          borderColor: 'rgb(36, 199, 36)',
-          data: []
-        }]
-      },
-      options: { responsive: true }
-    });
-  
-    const altitudeChart = new Chart(document.getElementById('altitudeChart'), {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Altitude (m)', 
-          borderColor: 'rgb(255, 182, 24)',
-          data: []
-        }]
-      },
-      options: { responsive: true }
-    });
+    function createTimeChart(canvasId, label, color) {
+      return new Chart(document.getElementById(canvasId), {
+        type: 'line',
+        data: {
+          datasets: [{
+            label,
+            borderColor: color,
+            data: [],
+            pointRadius: 2.5,
+            pointHitRadius: 3,
+            tension: 0.2
+          }]
+        },
+        options: {
+          responsive: true,
+          animation: false,
+          interaction: {
+            mode: 'nearest',
+            intersect: false
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              position: 'bottom',
+              min: 0,
+              ticks: {
+                callback: function(value) {
+                  return formatChartTime(value);
+                }
+              }
+            },
+            y: {
+              beginAtZero: false
+            }
+          },
+          plugins: {
+            legend: {
+              display: true
+            }
+          }
+        }
+      });
+    }
 
-    const velChart = new Chart(document.getElementById('velChart'), {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Velocidade (km/h)', 
-          borderColor: 'rgb(137, 93, 193)',
-          data: []
-        }]
-      },
-      options: { responsive: true }
-    });
+    const tempChart = createTimeChart('tempChart', 'Temperatura (°C)', 'rgb(255, 99, 132)');
+    const altitudeGPSChart = createTimeChart('altitudeGPSChart', 'Altitude GPS (m)', 'rgb(255, 58, 58)');
+    const humidityChart = createTimeChart('humidityChart', 'Humidade (%)', 'rgb(75, 192, 192)');
+    const pressureChart = createTimeChart('pressureChart', 'Pressão (hPa)', 'rgb(36, 199, 36)');
+    const altitudeChart = createTimeChart('altitudeChart', 'Altitude (m)', 'rgb(255, 182, 24)');
+    const velChart = createTimeChart('velChart', 'Velocidade (m/s)', 'rgb(137, 93, 193)');
+    const headingChart = createTimeChart('headingChart', 'Heading (°)', 'rgb(137, 93, 193)');
+    const satellitesChart = createTimeChart('satellitesChart', 'Satélites', 'rgb(245, 151, 47)');
+    const allCharts = [tempChart, humidityChart, pressureChart, altitudeChart, velChart, altitudeGPSChart, headingChart, satellitesChart];
 
-    const headingChart = new Chart(document.getElementById('headingChart'), {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Heading (°)', 
-          borderColor: 'rgb(137, 93, 193)',
-          data: []
-        }]
-      },
-      options: { responsive: true }
-    });
+    function resizeAllCharts() {
+      allCharts.forEach(chart => {
+        if (chart && typeof chart.resize === 'function') {
+          chart.resize();
+        }
+      });
+    }
 
-    const satellitesChart = new Chart(document.getElementById('satellitesChart'), {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Satélites', 
-          borderColor: 'rgb(245, 151, 47)',
-          data: []
-        }]
-      },
-      options: { responsive: true }
-    });
+    window.addEventListener('resize', resizeAllCharts);
   
     // MAP
   
@@ -436,7 +708,9 @@
       pathCoords = [];
 
       document.getElementById('statusText').textContent = "Atualizando...";
+      document.getElementById('statusText').style.color = '#2dbf6b';
       document.getElementById('statusText').classList.remove('text-yellow-500');
+      document.getElementById('statusText').classList.remove('text-red-500');
       document.getElementById('statusText').classList.add('text-green-500');
   
       eventSource = new EventSource('http://samuel-bret-laptop:5000/stream'); 
@@ -457,6 +731,7 @@
       eventSource.onmessage = function(event) {
 
         // Atualiza o status visual para indicar que os dados estão sendo recebidos
+        document.getElementById('statusText').style.color = '#2dbf6b';
         document.getElementById('statusText').classList.remove('text-red-500');
         document.getElementById('statusText').classList.add('text-green-500');
         
@@ -504,29 +779,39 @@
           time_spent: getValueOrNull(data.time_spent),
       });
 
-        // Função para atualizar gráficos com limitação de 100 pontos
-        function updateChart(chart, label, value) {
-          if (value === null) return;
-  
-          if (limitDataPoints && chart.data.labels.length >= MAX_DATA_POINTS) {
-            chart.data.labels.shift();
+        // Função para atualizar gráficos com espaçamento proporcional ao tempo decorrido.
+        function updateChart(chart, value, timeValue) {
+          if (value === null || value === undefined || timeValue === null || timeValue === undefined) return;
+
+          const point = { x: Number(timeValue), y: Number(value) };
+
+          if (limitDataPoints && chart.data.datasets[0].data.length >= MAX_DATA_POINTS) {
             chart.data.datasets[0].data.shift();
           }
-          chart.data.labels.push(label);
-          chart.data.datasets[0].data.push(value);
+
+          chart.data.datasets[0].data.push(point);
+
+          const xs = chart.data.datasets[0].data.map(p => p.x);
+          const minX = Math.min.apply(null, xs);
+          const maxX = Math.max.apply(null, xs);
+
+          chart.options.scales.x.min = Math.max(0, minX - 2);
+          chart.options.scales.x.max = maxX + 2;
           chart.update();
         }
         
         // Atualiza os gráficos, limitando a 100 pontos (only non-null values)
-        if (data.temperature !== null && data.temperature !== undefined) updateChart(tempChart, now, data.temperature);
-        if (data.humidity !== null && data.humidity !== undefined) updateChart(humidityChart, now, data.humidity);
-        if (data.pressure !== null && data.pressure !== undefined) updateChart(pressureChart, now, data.pressure.toFixed(5));
-        if (data.altitude !== null && data.altitude !== undefined) updateChart(altitudeChart, now, data.altitude.toFixed(5));
-        if (data.heading !== null && data.heading !== undefined) updateChart(headingChart, now, data.heading);
+        const timeValue = Number(data.time ?? 0);
+
+        if (data.temperature !== null && data.temperature !== undefined) updateChart(tempChart, data.temperature, data.time);
+        if (data.humidity !== null && data.humidity !== undefined) updateChart(humidityChart, data.humidity, data.time);
+        if (data.pressure !== null && data.pressure !== undefined) updateChart(pressureChart, data.pressure, data.time);
+        if (data.altitude !== null && data.altitude !== undefined) updateChart(altitudeChart, data.altitude, data.time);
+        if (data.heading !== null && data.heading !== undefined) updateChart(headingChart, data.heading, data.time);
         if (data.gps_valid == 1) {
-          if (data.speed !== null && data.speed !== undefined) updateChart(velChart, now, data.speed.toFixed(1));
-          if (data.altitude_gps !== null && data.altitude_gps !== undefined) updateChart(altitudeGPSChart, now, data.altitude_gps.toFixed(1));
-          if (data.satellites !== null && data.satellites !== undefined) updateChart(satellitesChart, now, data.satellites);
+          if (data.speed !== null && data.speed !== undefined) updateChart(velChart, data.speed, data.time);
+          if (data.altitude_gps !== null && data.altitude_gps !== undefined) updateChart(altitudeGPSChart, data.altitude_gps, data.time);
+          if (data.satellites !== null && data.satellites !== undefined) updateChart(satellitesChart, data.satellites, data.time);
         }
         
         // Function to display value or "--" if null/undefined
@@ -557,17 +842,38 @@
         displayValue('lonValue', data.longitude ?? null);
         displayValue('altitudeGPSValue', data.altitude_gps ?? null, ' m');
 
-        if (!METERMODE){
-          displayValue('distanciaPercorrida', data.total_distance != null ? (data.total_distance).toFixed(3) + ' km' : '-- km');
-          displayValue('deslocamento', data.des != null ? data.des.toFixed(2) + ' km' : '-- km');
-          displayValue('vel', data.speed != null ? (data.speed * 3.6).toFixed(2) + ' km/h' : '-- km/h');
-          displayValue('velMed', data.vel_media != null ? data.vel_media.toFixed(2) + ' km/h' : '-- km/h');
+        if (data.total_distance != null && data.total_distance !== undefined) {
+          const distanceValue = Number(data.total_distance);
+          const distanceText = METERMODE ? `${(distanceValue / 1000).toFixed(3)} km` : `${distanceValue.toFixed(3)} m`;
+          document.getElementById('distanciaPercorrida').textContent = distanceText;
+        } else {
+          document.getElementById('distanciaPercorrida').textContent = METERMODE ? '-- km' : '-- m';
         }
-        else{
-          displayValue('distanciaPercorrida', data.total_distance != null ? (data.total_distance * 1000).toFixed(3) + ' m' : '-- m');
-          displayValue('deslocamento', data.des != null ? (data.des*1000).toFixed(2) + ' m' : '-- m');
-          displayValue('vel', data.speed != null ? (data.speed).toFixed(2) + ' m/s' : '-- m/s');
-          displayValue('velMed', data.vel_media != null ? (data.vel_media / 3.6).toFixed(2) + ' m/s' : '-- m/s');
+
+        if (data.des != null && data.des !== undefined) {
+          const deslocValue = Number(data.des);
+          const deslocText = METERMODE ? `${(deslocValue / 1000).toFixed(2)} km` : `${deslocValue.toFixed(2)} m`;
+          document.getElementById('deslocamento').textContent = deslocText;
+        } else {
+          document.getElementById('deslocamento').textContent = METERMODE ? '-- km' : '-- m';
+        }
+
+        if (data.speed != null && data.speed !== undefined) {
+          lastSpeedValues.speed = Number(data.speed);
+          const speedValue = METERMODE ? (Number(data.speed) * 3.6).toFixed(2) : Number(data.speed).toFixed(2);
+          document.getElementById('vel').textContent = `${speedValue} ${METERMODE ? 'km/h' : 'm/s'}`;
+        } else {
+          lastSpeedValues.speed = null;
+          document.getElementById('vel').textContent = METERMODE ? '-- km/h' : '-- m/s';
+        }
+
+        if (data.vel_media != null && data.vel_media !== undefined) {
+          lastSpeedValues.velMedia = Number(data.vel_media);
+          const velMedValue = METERMODE ? (Number(data.vel_media) * 3.6).toFixed(2) : Number(data.vel_media).toFixed(2);
+          document.getElementById('velMed').textContent = `${velMedValue} ${METERMODE ? 'km/h' : 'm/s'}`;
+        } else {
+          lastSpeedValues.velMedia = null;
+          document.getElementById('velMed').textContent = METERMODE ? '-- km/h' : '-- m/s';
         }
           
         // Atualiza o mapa com a nova localização (only if both lat and lon are valid)
@@ -593,6 +899,7 @@
 
     eventSource.onerror = function() {
       document.getElementById('statusText').textContent = "Erro na Conexão!";
+      document.getElementById('statusText').style.color = '#d24d4d';
       document.getElementById('statusText').classList.remove('text-green-500');
       document.getElementById('statusText').classList.add('text-red-500');
       console.error("Error with the EventSource connection:", event);
@@ -602,7 +909,9 @@
   }
   
   function stopDataUpdate() {
+    document.getElementById('statusText').style.color = '#d7a347';
     document.getElementById('statusText').classList.remove('text-green-500');
+    document.getElementById('statusText').classList.remove('text-red-500');
     document.getElementById('statusText').classList.add('text-yellow-500');
     if (eventSource) {
       eventSource.close();
@@ -620,39 +929,45 @@
     pathCoords = [];
     
     collectedData = [];
-    tempChart.data.labels = [];
     tempChart.data.datasets[0].data = [];
-    humidityChart.data.labels = [];
     humidityChart.data.datasets[0].data = [];
-    pressureChart.data.labels = [];
     pressureChart.data.datasets[0].data = [];
-    altitudeChart.data.labels = [];
-    altitudeChart.data.datasets[0].data = [];    
-    altitudeGPSChart.data.labels = [];
+    altitudeChart.data.datasets[0].data = [];
     altitudeGPSChart.data.datasets[0].data = [];
-    velChart.data.labels = [];
     velChart.data.datasets[0].data = [];
-    headingChart.data.labels = [];
     headingChart.data.datasets[0].data = [];
-    satellitesChart.data.labels = [];   
     satellitesChart.data.datasets[0].data = [];
 
-
+    tempChart.options.scales.x.min = 0;
+    tempChart.options.scales.x.max = 1;
+    humidityChart.options.scales.x.min = 0;
+    humidityChart.options.scales.x.max = 1;
+    pressureChart.options.scales.x.min = 0;
+    pressureChart.options.scales.x.max = 1;
+    altitudeChart.options.scales.x.min = 0;
+    altitudeChart.options.scales.x.max = 1;
+    altitudeGPSChart.options.scales.x.min = 0;
+    altitudeGPSChart.options.scales.x.max = 1;
+    velChart.options.scales.x.min = 0;
+    velChart.options.scales.x.max = 1;
+    headingChart.options.scales.x.min = 0;
+    headingChart.options.scales.x.max = 1;
+    satellitesChart.options.scales.x.min = 0;
+    satellitesChart.options.scales.x.max = 1;
 
     tempChart.update();
     humidityChart.update();
     pressureChart.update();
     altitudeChart.update();
     headingChart.update();
-  
     velChart.update();
     altitudeGPSChart.update();
     satellitesChart.update();
   
-    document.getElementById('distanciaPercorrida').textContent = "-- km";
-    document.getElementById('velMed').textContent = "-- km/h";
-    document.getElementById('vel').textContent = "-- km/h";
-    document.getElementById('deslocamento').textContent = "-- km";
+    document.getElementById('distanciaPercorrida').textContent = "-- m";
+    document.getElementById('velMed').textContent = "-- m/s";
+    document.getElementById('vel').textContent = "-- m/s";
+    document.getElementById('deslocamento').textContent = "-- m";
 
     document.getElementById('tempValue').textContent = "-- °C";
     document.getElementById('humidityValue').textContent = "-- %";
@@ -779,5 +1094,6 @@ function formatNumber(value, decimals) {
   startDataUpdate();
   </script>
   
+  </div>
 </body>
 </html>

@@ -5,36 +5,39 @@
   },
   {
     "name": "notícias",
-    "link": "noticias.html"
+    "link": "noticias.html",
+    "status": "not available"
   },
   {
     "name": "atividades",
+    "status": "not available",
     "children": [
-      { "name": "planificação", "link": "planificacao.html" },
-      { "name": "estação meteorológica", "link": "estacao-meteorologica.html" },
-      { "name": "clinostato", "link": "clinostato.html" },
-      { "name": "QAI", "link": "qai.html" },
-      { "name": "foguete de água", "link": "foguete-de-agua.html" },
-      { "name": "rocket", "link": "rocket.html" }
+      { "name": "planificação", "link": "planificacao.html", "status": "not available"},
+      { "name": "estação meteorológica", "link": "estacao-meteorologica.html", "status": "not available" },
+      { "name": "clinostato", "link": "clinostato.html", "status": "not available" },
+      { "name": "QAI", "link": "qai.html", "status": "not available" },
+      { "name": "foguete de água", "link": "foguete-de-agua.html", "status": "not available" },
+      { "name": "rocket", "link": "rocket.html", "status": "not available" }
     ]
   },
   {
     "name": "projetos",
     "children": [
-      { "name": "Isave", "link": "isave.html" },
-      { "name": "ROV", "link": "rov.html" },
+      { "name": "Isave", "link": "isave.html", "status": "not available" },
+      { "name": "ROV", "link": "rov.html", "status": "not available" },
       {
         "name": "limiar",
         "children": [
           { "name": "limiar1", "link": "limiar1.html" },
           { "name": "limiar2", "link": "limiar2.html" },
           { "name": "limiar2.1", "link": "limiar2.1.html" },
-          { "name": "limiar3", "link": "limiar-3.html" }
+          { "name": "limiar3", "link": "limiar-3.html", "status": "not available" }
         ]
       },
-      { "name": "roda de água", "link": "roda-de-agua.html" }
+      { "name": "roda de água", "link": "roda-de-agua.html", "status": "not available" }
     ]
   },
-  { "name": "palestras", "link": "palestras.html" },
-  { "name": "estudos", "link": "estudos.html" }
+  { "name": "palestras", "link": "palestras.html", "status": "not available" },
+  { "name": "estudos", "link": "estudos.html", "status": "not available" },
+  { "name": "telemetria", "link": "telemetry.html"}
 ]

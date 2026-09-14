@@ -2408,6 +2408,11 @@ input, select, textarea {
 				color: #fff;
 			}
 
+			#nav li.not-available > a {
+				text-decoration: line-through !important;
+				text-decoration-color: currentColor;
+			}
+
 	.dropotron {
 		list-style: none;
 		background: #6B7770;
@@ -2936,7 +2941,8 @@ body{
 
 				#navPanel nav a {
 					display: block;
-					color: rgba(255, 255, 255, 0.5);
+					color: rgba(255, 255, 255, 1);
+					opacity: 0.5;
 					text-decoration: none;
 					height: 44px;
 					line-height: 44px;
@@ -2966,6 +2972,7 @@ body{
 					opacity: 0;
 					transform: translateY(-4px);
 					transition: opacity 0.2s ease, transform 0.2s ease;
+
 				}
 
 				#navPanel nav li.active > ul,
@@ -2974,10 +2981,17 @@ body{
 					display: block;
 					opacity: 1;
 					transform: translateY(0);
+					border-radius: 5px;
+				}
+
+				#navPanel nav li.not-available > a {
+					text-decoration: line-through;
+					text-decoration-color: currentColor;
 				}
 
 				#navPanel nav li > ul > li > a {
-					padding-left: 2em;
+					padding-left: 1em;
+					border-radius:6px 0px 0px 6px;
 				}
 
 				#navPanel nav a:hover,
@@ -2985,7 +2999,7 @@ body{
 				#navPanel nav a.current,
 				#navPanel nav li.current > a {
 					background: #0064FF;
-					color: #fff;
+					opacity: 1;
 				}
 
 				#navPanel nav a:first-child,

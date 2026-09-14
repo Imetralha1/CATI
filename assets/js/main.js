@@ -196,6 +196,9 @@ function buildMenu(items) {
 		if (item.current || item.active) {
 			li.classList.add("current");
 		}
+		if (item.status === "not available") {
+			li.classList.add("not-available");
+		}
 
 		const a = document.createElement("a");
 		a.textContent = item.name;

@@ -2409,7 +2409,7 @@ input, select, textarea {
 			}
 
 			#nav li.not-available > a {
-				text-decoration: line-through !important;
+				text-decoration: line-through;
 				text-decoration-color: currentColor;
 			}
 
@@ -2455,6 +2455,11 @@ input, select, textarea {
 				color: #fff;
 				background: #7B8780;
 				font-size: 1.05em;
+			}
+
+			.dropotron li.not-available > a {
+				text-decoration: line-through;
+				text-decoration-color: currentColor;
 			}
 
 			.dropotron li:first-child {

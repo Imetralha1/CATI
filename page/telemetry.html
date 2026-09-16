@@ -337,64 +337,91 @@
         </div>
       </div>
       
-      <div class="telemetry-grid">
+      <div class="row gtr-25 aln-topbot">
+        <div class="col-4 col-6-small">
           <div class="metric-card">
               <h2>Temperatura Interior</h2>
               <p id="tempValue">-- °C</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">
           <div class="metric-card">
               <h2>Humidade Interior</h2>
               <p id="humidityValue">-- %</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">        
           <div class="metric-card">
               <h2>Pressão Atmosférica</h2>
               <p id="pressureValue">-- hPa</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Altitude</h2>
               <p id="altitudeValue">-- m</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Latitude</h2>
               <p id="latValue">--</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Longitude</h2>
               <p id="lonValue">--</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Altitude GPS</h2>
               <p id="altitudeGPSValue">-- m</p>
           </div>  
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Distância  Percorrida</h2>
               <p id="distanciaPercorrida">-- km</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Deslocamento</h2>
               <p id="deslocamento">-- km</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Velocidade</h2>
               <p id="vel">-- m/s</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Velocidade Média</h2>
               <p id="velMed">-- m/s</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Aceleração (X, Y, Z)</h2>
               <p id="accelX">-- m/s²</p>
               <p id="accelY">-- m/s²</p>
               <p id="accelZ">-- m/s²</p>
           </div>
+        </div>
+        <div class="col-4 col-6-small">          
           <div class="metric-card">
               <h2>Giroscópio (X, Y, Z)</h2>
               <p id="gyroX">-- °/s</p>
               <p id="gyroY">-- °/s</p>
               <p id="gyroZ">-- °/s</p>
           </div>
+        </div>
       </div>
+
 
       <hr style="border-top: 4px solid #0064FF; margin: 2.5rem 0; opacity: 0.9;">
       <h2 class="telemetry-section-title">Gráficos</h2>
@@ -405,38 +432,54 @@
           <div class="toggle-slider"></div>
         </label>
       </div>
-      <div class="chart-grid">
-        <div class="chart-card">
-          <h3>Temperatura Interior</h3>
-          <canvas id="tempChart"></canvas>
+      <div class="row gtr-25">
+        <div class="col-6 col-12-small">
+          <div class="chart-card">
+            <h3>Temperatura Interior</h3>
+            <canvas id="tempChart"></canvas>
+          </div>
         </div>
-        <div class="chart-card">
-          <h3>Humidade Interior</h3>
-          <canvas id="humidityChart"></canvas>
+        <div class="col-6 col-12-small">        
+          <div class="chart-card">
+            <h3>Humidade Interior</h3>
+            <canvas id="humidityChart"></canvas>
+          </div>
         </div>
-        <div class="chart-card">
-          <h3>Pressão Atmosférica</h3>
-          <canvas id="pressureChart"></canvas>
+        <div class="col-6 col-12-small">           
+          <div class="chart-card">
+            <h3>Pressão Atmosférica</h3>
+            <canvas id="pressureChart"></canvas>
+          </div>
         </div>
-        <div class="chart-card">
-          <h3>Altitude</h3>
-          <canvas id="altitudeChart"></canvas>
+        <div class="col-6 col-12-small">           
+          <div class="chart-card">
+            <h3>Altitude</h3>
+            <canvas id="altitudeChart"></canvas>
+          </div>
         </div>
-        <div class="chart-card">
-          <h3>Velocidade</h3>
-          <canvas id="velChart"></canvas>
+        <div class="col-6 col-12-small">           
+          <div class="chart-card">
+            <h3>Velocidade</h3>
+            <canvas id="velChart"></canvas>
+          </div>
         </div>
-        <div class="chart-card">
-          <h3>Altitude GPS</h3>
-          <canvas id="altitudeGPSChart"></canvas>
+        <div class="col-6 col-12-small">           
+          <div class="chart-card">
+            <h3>Altitude GPS</h3>
+            <canvas id="altitudeGPSChart"></canvas>
+          </div>
         </div>
-        <div class="chart-card">
-          <h3>Heading</h3>
-          <canvas id="headingChart"></canvas>
+        <div class="col-6 col-12-small">           
+          <div class="chart-card">
+            <h3>Heading</h3>
+            <canvas id="headingChart"></canvas>
+          </div>
         </div>
-        <div class="chart-card">
-          <h3>Satélites</h3>
-          <canvas id="satellitesChart"></canvas>
+        <div class="col-6 col-12-small">           
+          <div class="chart-card">
+            <h3>Satélites</h3>
+            <canvas id="satellitesChart"></canvas>
+          </div>
         </div>
       </div>
 
@@ -713,7 +756,7 @@
       document.getElementById('statusText').classList.remove('text-red-500');
       document.getElementById('statusText').classList.add('text-green-500');
   
-      eventSource = new EventSource('https://msrvc496-5000.uks1.devtunnels.ms/stream'); 
+      eventSource = new EventSource('http://samuel-bret-laptop:5000/stream'); 
 
 
       function updateClock() {

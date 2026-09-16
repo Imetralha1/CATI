@@ -10,14 +10,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <style>
-    body {
-      background: #f0f1f5;
-      color: #1f2a37;
-    }
-
     #page-wrapper {
       min-height: 100vh;
-      background: #efeff5;
     }
 
     .telemetry-shell {
@@ -297,169 +291,175 @@
 <body class="homepage is-preload">
   <div id="page-wrapper">
 
-  <!-- Nav -->
-  <nav id="nav"></nav>
+    <!-- Nav -->
+    <nav id="nav"></nav>
 
-  <header class="telemetry-header">
-    <div class="telemetry-brand-row">
-      <a href="https://aecarlosamarante.pt/" target="_blank" class="telemetry-brand">
-        <img src="../images/telemetry/CarlosAmarante.png" alt="Logo Carlos">
-      </a>
-      <span class="telemetry-brand"><img src="../images/telemetry/Bernado.png" alt="Logo Bernardo"></span>
-      <span class="telemetry-brand"><img src="../images/telemetry/AFCH.png" alt="Logo Afch"></span>
-      <span class="telemetry-brand"><img src="../images/telemetry/ibd.png" alt="Logo IBD"></span>
-      <span class="telemetry-brand"><img src="../images/telemetry/LIP.png" alt="Logo LIP"></span>
+    <header class="telemetry-header">
+      <div class="telemetry-brand-row">
+        <a href="https://aecarlosamarante.pt/" target="_blank" class="telemetry-brand">
+          <img src="../images/telemetry/CarlosAmarante.png" alt="Logo Carlos">
+        </a>
+        <span class="telemetry-brand"><img src="../images/telemetry/Bernado.png" alt="Logo Bernardo"></span>
+        <span class="telemetry-brand"><img src="../images/telemetry/AFCH.png" alt="Logo Afch"></span>
+        <span class="telemetry-brand"><img src="../images/telemetry/ibd.png" alt="Logo IBD"></span>
+        <span class="telemetry-brand"><img src="../images/telemetry/LIP.png" alt="Logo LIP"></span>
+      </div>
+
+      <h1 class="telemetry-page-title">Painel de Dados - LIMIAR</h1>
+    </header>
+
+
+    <div class="telemetry-shell">
+      <div class="telemetry-toolbar">
+        <button id="downloadCSV" class="button alt small">
+          Exportar CSV
+        </button>
+        <button id="downloadMAP" class="button special small">
+          Exportar MAP
+        </button>
+        <a href="information.html" target="_blank" class="button alt small icon solid fa-info-circle">
+          Informação
+        </a>
+      </div>
+
+      <hr style="border-top: 4px solid #0064FF; margin: 2.5rem 0; opacity: 0.9;">
+      <h2 class="telemetry-section-title">Painel de Controlo</h2>
+      <div class="telemetry-status-bar">
+        <span>Status: <span id="statusText" class="text-yellow-500 font-bold">Parado</span></span>
+      </div>
+      <div class="telemetry-status-bar">
+        <div class="status-row">
+          <span id="speedUnitLabel" class="unit-label">m/s</span>
+          <label class="toggle-wrap">
+            <input type="checkbox" id="meterMode" class="sr-only peer">
+            <div class="toggle-slider"></div>
+          </label>
+        </div>
+      </div>
+      
+      <div class="telemetry-grid">
+          <div class="metric-card">
+              <h2>Temperatura Interior</h2>
+              <p id="tempValue">-- °C</p>
+          </div>
+          <div class="metric-card">
+              <h2>Humidade Interior</h2>
+              <p id="humidityValue">-- %</p>
+          </div>
+          <div class="metric-card">
+              <h2>Pressão Atmosférica</h2>
+              <p id="pressureValue">-- hPa</p>
+          </div>
+          <div class="metric-card">
+              <h2>Altitude</h2>
+              <p id="altitudeValue">-- m</p>
+          </div>
+          <div class="metric-card">
+              <h2>Latitude</h2>
+              <p id="latValue">--</p>
+          </div>
+          <div class="metric-card">
+              <h2>Longitude</h2>
+              <p id="lonValue">--</p>
+          </div>
+          <div class="metric-card">
+              <h2>Altitude GPS</h2>
+              <p id="altitudeGPSValue">-- m</p>
+          </div>  
+          <div class="metric-card">
+              <h2>Distância  Percorrida</h2>
+              <p id="distanciaPercorrida">-- km</p>
+          </div>
+          <div class="metric-card">
+              <h2>Deslocamento</h2>
+              <p id="deslocamento">-- km</p>
+          </div>
+          <div class="metric-card">
+              <h2>Velocidade</h2>
+              <p id="vel">-- m/s</p>
+          </div>
+          <div class="metric-card">
+              <h2>Velocidade Média</h2>
+              <p id="velMed">-- m/s</p>
+          </div>
+          <div class="metric-card">
+              <h2>Aceleração (X, Y, Z)</h2>
+              <p id="accelX">-- m/s²</p>
+              <p id="accelY">-- m/s²</p>
+              <p id="accelZ">-- m/s²</p>
+          </div>
+          <div class="metric-card">
+              <h2>Giroscópio (X, Y, Z)</h2>
+              <p id="gyroX">-- °/s</p>
+              <p id="gyroY">-- °/s</p>
+              <p id="gyroZ">-- °/s</p>
+          </div>
+      </div>
+
+      <hr style="border-top: 4px solid #0064FF; margin: 2.5rem 0; opacity: 0.9;">
+      <h2 class="telemetry-section-title">Gráficos</h2>
+      <div class="telemetry-subtoggle">
+        <span>Limitar a 50 pontos:</span>
+        <label class="toggle-wrap">
+          <input type="checkbox" id="limitDataToggle" class="sr-only peer">
+          <div class="toggle-slider"></div>
+        </label>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Temperatura Interior</h3>
+          <canvas id="tempChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Humidade Interior</h3>
+          <canvas id="humidityChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Pressão Atmosférica</h3>
+          <canvas id="pressureChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Altitude</h3>
+          <canvas id="altitudeChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Velocidade</h3>
+          <canvas id="velChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Altitude GPS</h3>
+          <canvas id="altitudeGPSChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Heading</h3>
+          <canvas id="headingChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Satélites</h3>
+          <canvas id="satellitesChart"></canvas>
+        </div>
+      </div>
+
+      <hr class="my-10 border-t-4 border-gray-300">
+      <h2 class="text-2xl font-bold mb-4 text-left">Localização em Tempo Real</h2>
+      <div id="map"></div>
+      <hr class="my-10 border-t-4 border-gray-300">
+
+      <div class="mt-2 mb-4 px-2 flex justify-between items-center">
+        <div class="text-left space-x-4">
+          <label>
+            [ Made by <a href="https://github.com/EdroCode" target="_blank" class="text-blue-600 underline">Edro</a>, with help from <a href="https://github.com/SamBBret" target="_blank" class="text-blue-600 underline">Samuel Bret</a> ]
+          </label>
+          <span>Hora atual: <span id="clock">--:--:--</span></span>
+          <span>Tempo Decorrido: <span id="tempoDecorrido">--:--:--</span></span>
+        </div>
+      </div>
     </div>
-
-    <h1 class="telemetry-page-title">Painel de Dados - LIMIAR</h1>
-  </header>
-
-
-  <div class="telemetry-shell">
-    <div class="telemetry-toolbar">
-      <button id="downloadCSV" class="button alt small">
-        Exportar CSV
-      </button>
-      <button id="downloadMAP" class="button special small">
-        Exportar MAP
-      </button>
-      <a href="information.html" target="_blank" class="button alt small icon solid fa-info-circle">
-        Informação
-      </a>
-    </div>
-
-  <hr style="border-top: 4px solid #0064FF; margin: 2.5rem 0; opacity: 0.9;">
-  <h2 class="telemetry-section-title">Painel de Controlo</h2>
-  <div class="telemetry-status-bar">
-    <span>Status: <span id="statusText" class="text-yellow-500 font-bold">Parado</span></span>
   </div>
-  <div class="telemetry-status-bar">
-    <div class="status-row">
-      <span id="speedUnitLabel" class="unit-label">m/s</span>
-      <label class="toggle-wrap">
-        <input type="checkbox" id="meterMode" class="sr-only peer">
-        <div class="toggle-slider"></div>
-      </label>
-    </div>
-  </div>
-  
-  <div class="telemetry-grid">
-      <div class="metric-card">
-          <h2>Temperatura Interior</h2>
-          <p id="tempValue">-- °C</p>
-      </div>
-      <div class="metric-card">
-          <h2>Humidade Interior</h2>
-          <p id="humidityValue">-- %</p>
-      </div>
-      <div class="metric-card">
-          <h2>Pressão Atmosférica</h2>
-          <p id="pressureValue">-- hPa</p>
-      </div>
-      <div class="metric-card">
-          <h2>Altitude</h2>
-          <p id="altitudeValue">-- m</p>
-      </div>
-      <div class="metric-card">
-          <h2>Latitude</h2>
-          <p id="latValue">--</p>
-      </div>
-      <div class="metric-card">
-          <h2>Longitude</h2>
-          <p id="lonValue">--</p>
-      </div>
-      <div class="metric-card">
-          <h2>Altitude GPS</h2>
-          <p id="altitudeGPSValue">-- m</p>
-      </div>  
-      <div class="metric-card">
-          <h2>Distância  Percorrida</h2>
-          <p id="distanciaPercorrida">-- km</p>
-      </div>
-      <div class="metric-card">
-          <h2>Deslocamento</h2>
-          <p id="deslocamento">-- km</p>
-      </div>
-      <div class="metric-card">
-          <h2>Velocidade</h2>
-          <p id="vel">-- m/s</p>
-      </div>
-      <div class="metric-card">
-          <h2>Velocidade Média</h2>
-          <p id="velMed">-- m/s</p>
-      </div>
-      <div class="metric-card">
-          <h2>Aceleração (X, Y, Z)</h2>
-          <p id="accelX">-- m/s²</p>
-          <p id="accelY">-- m/s²</p>
-          <p id="accelZ">-- m/s²</p>
-      </div>
-      <div class="metric-card">
-          <h2>Giroscópio (X, Y, Z)</h2>
-          <p id="gyroX">-- °/s</p>
-          <p id="gyroY">-- °/s</p>
-          <p id="gyroZ">-- °/s</p>
-      </div>
-  </div>
 
-  <hr style="border-top: 4px solid #0064FF; margin: 2.5rem 0; opacity: 0.9;">
-  <h2 class="telemetry-section-title">Gráficos</h2>
-  <div class="telemetry-subtoggle">
-    <span>Limitar a 50 pontos:</span>
-    <label class="toggle-wrap">
-      <input type="checkbox" id="limitDataToggle" class="sr-only peer">
-      <div class="toggle-slider"></div>
-    </label>
-  </div>
-  <div class="chart-grid">
-    <div class="chart-card">
-      <h3>Temperatura Interior</h3>
-      <canvas id="tempChart"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>Humidade Interior</h3>
-      <canvas id="humidityChart"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>Pressão Atmosférica</h3>
-      <canvas id="pressureChart"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>Altitude</h3>
-      <canvas id="altitudeChart"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>Velocidade</h3>
-      <canvas id="velChart"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>Altitude GPS</h3>
-      <canvas id="altitudeGPSChart"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>Heading</h3>
-      <canvas id="headingChart"></canvas>
-    </div>
-    <div class="chart-card">
-      <h3>Satélites</h3>
-      <canvas id="satellitesChart"></canvas>
-    </div>
-  </div>
 
-  <hr class="my-10 border-t-4 border-gray-300">
-  <h2 class="text-2xl font-bold mb-4 text-left">Localização em Tempo Real</h2>
-  <div id="map"></div>
-  <hr class="my-10 border-t-4 border-gray-300">
-
-  <div class="mt-2 mb-4 px-2 flex justify-between items-center">
-    <div class="text-left space-x-4">
-      <label>
-        [ Made by <a href="https://github.com/EdroCode" target="_blank" class="text-blue-600 underline">Edro</a>, with help from <a href="https://github.com/SamBBret" target="_blank" class="text-blue-600 underline">Samuel Bret</a> ]
-      </label>
-      <span>Hora atual: <span id="clock">--:--:--</span></span>
-      <span>Tempo Decorrido: <span id="tempoDecorrido">--:--:--</span></span>
-    </div>
-  </div>
+  <!-- Footer -->
+  <footer id="footer"></footer>
 
     <!-- Scripts -->
   <script src="../assets/js/jquery.min.js"></script>

@@ -131,6 +131,14 @@
 				$li.toggleClass('active', !isOpen);
 				$submenu.toggle(!isOpen);
 			});
+
+			//Footer
+			fetch("../page/footer.html")
+				.then(response => response.text())
+				.then(data => {
+					document.getElementById("footer").innerHTML = data;
+				});
+
 		}
 
 })(jQuery);

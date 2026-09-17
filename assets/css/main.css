@@ -195,6 +195,14 @@ input, select, textarea {
 		margin-bottom: 3em;
 	}
 
+	p {
+		text-align: justify;
+	}
+
+	p.inherit {
+		text-align: inherit;
+	}
+
 /* Section/Article */
 
 	section, article {
@@ -312,6 +320,29 @@ input, select, textarea {
 			height: 100%;
 			width: 100%;
 			object-fit: cover;
+		}
+
+		.row.grid {
+			border-style: solid hidden hidden solid;
+			border-width: 1px;
+			border-color: #303030
+		}
+
+			.row.grid > * {
+				border: inherit;		
+				border-style: none solid solid none;	
+			}
+
+		.row.grid.topbot {
+			border-style: solid none none none;
+		}
+
+			.row.grid.topbot > * {
+				border-style: none none solid none;	
+			}
+
+		.row.sp p, .row.sp h2 {
+		margin-bottom: 0;
 		}
 
 		.row > .imp {
@@ -441,11 +472,11 @@ input, select, textarea {
 			}
 
 			.row.gtr-25.gtr-uniform {
-				margin-top: -12.5px;
+				margin: -6.25px;
 			}
 
 				.row.gtr-25.gtr-uniform > * {
-					padding-top: 12.5px;
+					padding: 6.25px;
 				}
 
 		.row.gtr-50 {
@@ -458,11 +489,11 @@ input, select, textarea {
 			}
 
 			.row.gtr-50.gtr-uniform {
-				margin-top: -25px;
+				margin: -12.5px;
 			}
 
 				.row.gtr-50.gtr-uniform > * {
-					padding-top: 25px;
+					padding: 12.5px;
 				}
 
 		.row {
@@ -475,11 +506,11 @@ input, select, textarea {
 			}
 
 			.row.gtr-uniform {
-				margin-top: -50px;
+				margin: -25px;
 			}
 
 				.row.gtr-uniform > * {
-					padding-top: 50px;
+					padding: 25px;
 				}
 
 		.row.gtr-150 {
@@ -492,11 +523,11 @@ input, select, textarea {
 			}
 
 			.row.gtr-150.gtr-uniform {
-				margin-top: -75px;
+				margin: -37.5px;
 			}
 
 				.row.gtr-150.gtr-uniform > * {
-					padding-top: 75px;
+					padding: 37.5px;
 				}
 
 		.row.gtr-200 {
@@ -509,11 +540,11 @@ input, select, textarea {
 			}
 
 			.row.gtr-200.gtr-uniform {
-				margin-top: -100px;
+				margin: -50px;
 			}
 
 				.row.gtr-200.gtr-uniform > * {
-					padding-top: 100px;
+					padding: 50px;
 				}
 
 		@media screen and (max-width: 1680px) {
@@ -527,10 +558,6 @@ input, select, textarea {
 
 				.row > * {
 					box-sizing: border-box;
-				}
-
-				.row.gtr-uniform > * > :last-child {
-					margin-bottom: 0;
 				}
 
 				.row.aln-left {
@@ -684,11 +711,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-25.gtr-uniform {
-						margin-top: -12.5px;
+						margin: -6.25px;
 					}
 
 						.row.gtr-25.gtr-uniform > * {
-							padding-top: 12.5px;
+							padding: 6.25px;
 						}
 
 				.row.gtr-50 {
@@ -701,11 +728,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-50.gtr-uniform {
-						margin-top: -25px;
+						margin: -12.5px;
 					}
 
 						.row.gtr-50.gtr-uniform > * {
-							padding-top: 25px;
+							padding: 12.5px;
 						}
 
 				.row {
@@ -718,11 +745,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-uniform {
-						margin-top: -50px;
+						margin: -25px;
 					}
 
 						.row.gtr-uniform > * {
-							padding-top: 50px;
+							padding: 25px;
 						}
 
 				.row.gtr-150 {
@@ -735,11 +762,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-150.gtr-uniform {
-						margin-top: -75px;
+						margin: -37.5px;
 					}
 
 						.row.gtr-150.gtr-uniform > * {
-							padding-top: 75px;
+							padding: 37.5px;
 						}
 
 				.row.gtr-200 {
@@ -752,11 +779,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-200.gtr-uniform {
-						margin-top: -100px;
+						margin: -50px;
 					}
 
 						.row.gtr-200.gtr-uniform > * {
-							padding-top: 100px;
+							padding: 50px;
 						}
 
 		}
@@ -772,10 +799,6 @@ input, select, textarea {
 
 				.row > * {
 					box-sizing: border-box;
-				}
-
-				.row.gtr-uniform > * > :last-child {
-					margin-bottom: 0;
 				}
 
 				.row.aln-left {
@@ -929,11 +952,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-25.gtr-uniform {
-						margin-top: -10px;
+						margin: -5px;
 					}
 
 						.row.gtr-25.gtr-uniform > * {
-							padding-top: 10px;
+							padding: 5px;
 						}
 
 				.row.gtr-50 {
@@ -946,11 +969,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-50.gtr-uniform {
-						margin-top: -20px;
+						margin: -10px;
 					}
 
 						.row.gtr-50.gtr-uniform > * {
-							padding-top: 20px;
+							padding: 10px;
 						}
 
 				.row {
@@ -963,11 +986,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-uniform {
-						margin-top: -40px;
+						margin: -20px;
 					}
 
 						.row.gtr-uniform > * {
-							padding-top: 40px;
+							padding: 20px;
 						}
 
 				.row.gtr-150 {
@@ -980,11 +1003,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-150.gtr-uniform {
-						margin-top: -60px;
+						margin: -30px;
 					}
 
 						.row.gtr-150.gtr-uniform > * {
-							padding-top: 60px;
+							padding: 30px;
 						}
 
 				.row.gtr-200 {
@@ -997,11 +1020,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-200.gtr-uniform {
-						margin-top: -80px;
+						margin: -40px;
 					}
 
 						.row.gtr-200.gtr-uniform > * {
-							padding-top: 80px;
+							padding: 40px;
 						}
 
 		}
@@ -1017,10 +1040,6 @@ input, select, textarea {
 
 				.row > * {
 					box-sizing: border-box;
-				}
-
-				.row.gtr-uniform > * > :last-child {
-					margin-bottom: 0;
 				}
 
 				.row.aln-left {
@@ -1174,11 +1193,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-25.gtr-uniform {
-						margin-top: -12.5px;
+						margin: -6.25px;
 					}
 
 						.row.gtr-25.gtr-uniform > * {
-							padding-top: 12.5px;
+							padding: 6.25px;
 						}
 
 				.row.gtr-50 {
@@ -1191,11 +1210,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-50.gtr-uniform {
-						margin-top: -25px;
+						margin: -12.5px;
 					}
 
 						.row.gtr-50.gtr-uniform > * {
-							padding-top: 25px;
+							padding: 12.5px;
 						}
 
 				.row {
@@ -1208,11 +1227,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-uniform {
-						margin-top: -50px;
+						margin: -25px;
 					}
 
 						.row.gtr-uniform > * {
-							padding-top: 50px;
+							padding: 25px;
 						}
 
 				.row.gtr-150 {
@@ -1225,11 +1244,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-150.gtr-uniform {
-						margin-top: -75px;
+						margin: -37.5px;
 					}
 
 						.row.gtr-150.gtr-uniform > * {
-							padding-top: 75px;
+							padding:37.5px;
 						}
 
 				.row.gtr-200 {
@@ -1242,11 +1261,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-200.gtr-uniform {
-						margin-top: -100px;
+						margin: -50px;
 					}
 
 						.row.gtr-200.gtr-uniform > * {
-							padding-top: 100px;
+							padding: 50px;
 						}
 
 		}
@@ -1262,10 +1281,6 @@ input, select, textarea {
 
 				.row > * {
 					box-sizing: border-box;
-				}
-
-				.row.gtr-uniform > * > :last-child {
-					margin-bottom: 0;
 				}
 
 				.row.aln-left {
@@ -1419,11 +1434,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-25.gtr-uniform {
-						margin-top: -5px;
+						margin: -2.5px;
 					}
 
 						.row.gtr-25.gtr-uniform > * {
-							padding-top: 5px;
+							padding: 2.5px;
 						}
 
 				.row.gtr-50 {
@@ -1436,11 +1451,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-50.gtr-uniform {
-						margin-top: -10px;
+						margin: -5px;
 					}
 
 						.row.gtr-50.gtr-uniform > * {
-							padding-top: 10px;
+							padding: 5px;
 						}
 
 				.row {
@@ -1453,11 +1468,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-uniform {
-						margin-top: -20px;
+						margin: -10px;
 					}
 
 						.row.gtr-uniform > * {
-							padding-top: 20px;
+							padding: 10px;
 						}
 
 				.row.gtr-150 {
@@ -1470,11 +1485,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-150.gtr-uniform {
-						margin-top: -30px;
+						margin: -15px;
 					}
 
 						.row.gtr-150.gtr-uniform > * {
-							padding-top: 30px;
+							padding: 15px;
 						}
 
 				.row.gtr-200 {
@@ -1487,11 +1502,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-200.gtr-uniform {
-						margin-top: -40px;
+						margin: -20px;
 					}
 
 						.row.gtr-200.gtr-uniform > * {
-							padding-top: 40px;
+							padding: 20px;
 						}
 
 		}
@@ -1507,10 +1522,6 @@ input, select, textarea {
 
 				.row > * {
 					box-sizing: border-box;
-				}
-
-				.row.gtr-uniform > * > :last-child {
-					margin-bottom: 0;
 				}
 
 				.row.aln-left {
@@ -1664,11 +1675,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-25.gtr-uniform {
-						margin-top: -3.75px;
+						margin: -1.875px;
 					}
 
 						.row.gtr-25.gtr-uniform > * {
-							padding-top: 3.75px;
+							padding: 1.875px;
 						}
 
 				.row.gtr-50 {
@@ -1681,11 +1692,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-50.gtr-uniform {
-						margin-top: -7.5px;
+						margin: -3.75px;
 					}
 
 						.row.gtr-50.gtr-uniform > * {
-							padding-top: 7.5px;
+							padding: 3.75px;
 						}
 
 				.row {
@@ -1698,11 +1709,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-uniform {
-						margin-top: -15px;
+						margin: -7.5px;
 					}
 
 						.row.gtr-uniform > * {
-							padding-top: 15px;
+							padding: 7.5px;
 						}
 
 				.row.gtr-150 {
@@ -1715,11 +1726,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-150.gtr-uniform {
-						margin-top: -22.5px;
+						margin: -11.25px;
 					}
 
 						.row.gtr-150.gtr-uniform > * {
-							padding-top: 22.5px;
+							padding: 11.25px;
 						}
 
 				.row.gtr-200 {
@@ -1732,11 +1743,11 @@ input, select, textarea {
 					}
 
 					.row.gtr-200.gtr-uniform {
-						margin-top: -30px;
+						margin-top: -15px;
 					}
 
 						.row.gtr-200.gtr-uniform > * {
-							padding-top: 30px;
+							padding-top: 15px;
 						}
 
 		}
@@ -2270,6 +2281,45 @@ input, select, textarea {
 		margin: 0 0 0.5em 0;
 	}
 
+/* Frame */
+
+	.frame {
+		border: solid;
+		border-width: 1px;
+		background-color: #ffffff;
+		padding: 20px;
+	}
+
+/* Telemtry cards */
+
+    .metric-card {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.1);
+      padding: 1rem;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .metric-card h2,
+    .metric-card h3,
+    .chart-card h3 {
+      margin: 0 0 0.45em;
+      font-size: 1.25em;
+      font-weight: 700;
+      color: #1a2b3d;
+    }
+
+    .metric-card p {
+      margin: 0;
+      font-size: clamp(1.2rem, 1.7vw, 2.3rem);
+      font-weight: 200;
+      color: #1f2a37;
+      line-height: 1.15;
+    }
+	
 /* Icons */
 
 	.icon {
@@ -2839,7 +2889,7 @@ body{
 			}
 
 				body.homepage {
-					padding-top: 0;
+					padding-top: 44px;
 				}
 
 			.development-banner {

@@ -126,7 +126,7 @@
 
       <div class="row aln-center aln-topbot gtr-25 sp">
         <div class="col-6 col-11-small">
-          <div class="frame">
+          <div class="frame white">
             <div style="font-size: 0.8em;">PAYLOAD 01</div>
             <h2>Científico · Telemetria</h2>
             <p style="margin-bottom: 20px;">Aquisição de dados, navegação e comunicações de longo alcance.</p>
@@ -142,7 +142,7 @@
         </div>
 
         <div class="col-6 col-11-small">
-          <div class="frame">
+          <div class="frame white">
             <div class="tag">PAYLOAD 02</div>
             <h3>Ambiental · Imagem</h3>
             <p style="margin-bottom: 20px;">Monitorização ambiental e aquisição de imagem, com sistemas independentes.</p>
@@ -158,7 +158,7 @@
           </div>
         </div>
         <div class="col-12 col-11-small">
-          <div class="frame">
+          <div class="frame white">
             <h3>Instrumentação térmica</h3>
             <div class="sensor-list">
               <span>6 × DS18B20</span>
@@ -186,7 +186,7 @@
               <h2 style="font-size: clamp(34px, 5vw, 65px); color: #303030;";>Antes de subir, medir</h2>
         </div>
         <hr style="border: none; margin: 3rem 0 0 0 ">        
-        <div class="row grid topbot gtr-100 gtr-uniform sp">
+        <div class="row grid g-topbot gtr-100 gtr-uniform sp">
           <div class="col-12" style="display: grid; grid-template-columns: 80px 1fr;"><span>01</span><div><h3>Eletrónica</h3><p>Verificação de alimentação, I²C, UART, microSD, GPS, sensores e comunicações.</p></div></div>
           <div class="col-12" style="display: grid; grid-template-columns: 80px 1fr;"><span>02</span><div><h3>Integração</h3><p>Montagem dos subsistemas, gestão de cablagem, isolamento e validação da aquisição simultânea.</p></div></div>
           <div class="col-12" style="display: grid; grid-template-columns: 80px 1fr;"><span>03</span><div><h3>Ambiente</h3><p>Ensaios de temperatura, autonomia e comportamento do conjunto em condições representativas.</p></div></div>
@@ -300,78 +300,79 @@
       </div>
     </section>
 
-    <section class="section dark" id="resultados">
-      <div class="section-head">
-        <p class="eyebrow">06 · RESULTADOS</p>
-        <h2>O voo termina. A análise começa.</h2>
-      </div>
-      <div class="result-grid">
-        <article><span>01</span><h3>Perfis atmosféricos</h3><p>Temperatura, pressão e humidade em função da altitude.</p></article>
-        <article><span>02</span><h3>Velocidade</h3><p>Comparação entre velocidade derivada do GPS e grandezas obtidas da IMU, com atenção à acumulação de erro na integração.</p></article>
-        <article><span>03</span><h3>Modelo térmico</h3><p>Diferenças entre faces, interior e exterior do payload ao longo da subida.</p></article>
-        <article><span>04</span><h3>Campo magnético</h3><p>Evolução das componentes do magnetómetro e relação com orientação/movimento.</p></article>
-      </div>
-      <div class="notice">
-        <strong>Área reservada aos resultados reais.</strong> Não preencher com valores previstos.
-        Inserir aqui gráficos, tabelas, fotografias e conclusões depois da validação dos dados.
+    <section class="section dark" id="main" style="background-color: #f2f5f3;">
+      <div  class="container">
+        <div class="section-head">
+              <p style="margin-bottom: 0px; margin-left: 6px; font-size: 0.8em;">06 · RESULTADOS</p>
+              <h2 style="font-size: clamp(34px, 5vw, 65px); color: #303030;";>O voo termina. A análise começa</h2>
+        </div>
+        <div class="row">
+        <div class="col-3 col-6-small"><div class="frame top"><span>01</span><h3>Perfis atmosféricos</h3><p>Temperatura, pressão e humidade em função da altitude.</p></div></div>
+        <div class="col-3 col-6-small"><div class="frame top"><span>02</span><h3>Velocidade</h3><p>Comparação entre velocidade derivada do GPS e grandezas obtidas da IMU, com atenção à acumulação de erro na integração.</p></div></div>
+        <div class="col-3 col-6-small"><div class="frame top"><span>03</span><h3>Modelo térmico</h3><p>Diferenças entre faces, interior e exterior do payload ao longo da subida.</p></div></div>
+        <div class="col-3 col-6-small"><div class="frame top"><span>04</span><h3>Campo magnético</h3><p>Evolução das componentes do magnetómetro e relação com orientação/movimento.</p></div></div>
       </div>
     </section>
 
-    <section class="section" id="noticias">
-      <div class="section-head">
-        <p class="eyebrow">07 · NOTÍCIAS</p>
-        <h2>Diário da missão.</h2>
-      </div>
-      <div class="news-grid">
-        <article class="news-card">
-          <time>2026</time>
-          <h3>Preparação da LIMIAR III — KAIROS</h3>
-          <p>Desenvolvimento dos payloads, integração de sensores, telemetria e sistemas de recuperação.</p>
-        </article>
-        <article class="news-card">
-          <time>2026</time>
-          <h3>Da Terra à estratosfera</h3>
-          <p>O CATI prepara uma nova experiência de engenharia experimental em alta altitude.</p>
-        </article>
-        <article class="news-card">
-          <time>A atualizar</time>
-          <h3>Resultados da missão</h3>
-          <p>Espaço reservado para a divulgação dos resultados científicos e tecnológicos após validação.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section press" id="press">
-      <div class="section-head">
-        <p class="eyebrow">08 · IMPRENSA</p>
-        <h2>Comunicação científica.</h2>
-      </div>
-      <div class="press-box">
-        <p>
-          A KAIROS foi concebida também como uma oportunidade de comunicação de ciência:
-          os alunos participam na construção, teste, operação e interpretação do sistema,
-          tornando o próprio processo de engenharia parte da aprendizagem.
-        </p>
-        <div class="press-links">
-          <a href="#" aria-disabled="true">Press release · a inserir</a>
-          <a href="#" aria-disabled="true">Galeria · a inserir</a>
-          <a href="#" aria-disabled="true">Vídeo · a inserir</a>
+    <section class="section" id="main">
+      <div  class="container">
+        <div class="section-head">
+              <p style="margin-bottom: 0px; margin-left: 6px; font-size: 0.8em;">07 · Notícias</p>
+              <h2 style="font-size: clamp(34px, 5vw, 65px); color: #303030;";>Diário da missão</h2>
+        </div>
+        <div class="row aln-center aln-topbot gtr-25 sp">
+          <div class="col-4 col-10-small">
+            <div class="frame dark">
+              <time>2026</time>
+              <hr style=" border: none; margin: 3rem 0 0 0">
+              <h3 style="color: #303030;">Preparação da LIMIAR III — KAIROS</h3>
+              <p>Desenvolvimento dos payloads, integração de sensores, telemetria e sistemas de recuperação.</p>
+              <hr style=" border: none; margin: 4rem 0 0 0">            
+            </div>
+          </div>
+          <div class="col-4 col-10-small">
+            <div class="frame dark">
+              <time>2026</time>
+              <hr style=" border: none; margin: 3rem 0 0 0">
+              <h3 style="color: #303030;">Da Terra à estratosfera</h3>
+              <p>O CATI prepara uma nova experiência de engenharia experimental em alta altitude.</p>
+            </div>        
+          </div>
+          <div class="col-4 col-10-small">
+            <div class="frame dark">
+              <time>A atualizar</time>
+              <hr style=" border: none; margin: 3rem 0 0 0">
+              <h3 style="color: #303030;">Resultados da missão</h3>
+              <p>Espaço reservado para a divulgação dos resultados científicos e tecnológicos após validação.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section cati">
-      <div class="section-head">
-        <p class="eyebrow">CATI</p>
-        <h2>Carlos Amarante Tecnologia e Inovação</h2>
+    <section class="section press" id="main" style="background-color: #f2f5f3;">
+      <div  class="container">
+        <div class="section-head">
+              <p style="margin-bottom: 0px; margin-left: 6px; font-size: 0.8em;">08 · IMPRENSA</p>
+              <h2 style="font-size: clamp(34px, 5vw, 65px); color: #303030;";>Comunicação científica</h2>
+        </div>
+        <div class="frame white">
+          <div class="row gtr-150 sp">
+            <div class="col-10">
+              <p style="color: #303030; font-size: 1.25em;">
+                A KAIROS foi concebida também como uma oportunidade de comunicação de ciência:
+                os alunos participam na construção, teste, operação e interpretação do sistema,
+                tornando o próprio processo de engenharia parte da aprendizagem.
+              </p>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 25px;">
+                <a class="grey" href="#" aria-disabled="true">Press release · a inserir</a>
+                <a class="grey" href="#" aria-disabled="true">Galeria · a inserir</a>
+                <a class="grey" href="#" aria-disabled="true">Vídeo · a inserir</a>
+              </div>
+           </div>
+          </div>
+        </div>
       </div>
-      <p class="cati-copy">
-        O CATI é um espaço de aprendizagem prática onde alunos desenvolvem projetos
-        de ciência, tecnologia e engenharia. Na KAIROS, diferentes idades e áreas
-        colaboram para transformar uma ideia em um sistema capaz de operar num
-        ambiente extremo.
-      </p>
-      <div class="keywords"><span>Ciência</span><span>Engenharia</span><span>Inovação</span><span>Sustentabilidade</span><span>Colaboração</span><span>Autonomia</span></div>
     </section>
   </main>
 

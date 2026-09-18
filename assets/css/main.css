@@ -154,6 +154,17 @@ input, select, textarea {
 			text-decoration: none;
 		}
 
+		a.grey {
+			text-decoration: none;
+			border-bottom: 1px solid #949596;
+			color: #949596;
+			font-size: 12px;
+			font-weight: 700;
+			padding-bottom: 4px;	
+			font-family: Inter, system-ui, sans-serif;
+			line-height: 1.75;					
+		}
+
 	b, strong {
 		font-weight: 700;
 		color: #6b7770;
@@ -323,22 +334,22 @@ input, select, textarea {
 		}
 
 		.row.grid {
-			border-style: solid hidden hidden solid;
-			border-width: 1px;
+			border-style: none solid solid none;
+			border-width: 1px;	
 			border-color: #303030
 		}
 
 			.row.grid > * {
 				border: inherit;		
-				border-style: none solid solid none;	
+				border-style: solid none none solid;	
 			}
 
-		.row.grid.topbot {
-			border-style: solid none none none;
+		.row.grid.g-topbot {
+			border-style: none none solid none;
 		}
 
-			.row.grid.topbot > * {
-				border-style: none none solid none;	
+			.row.grid.g-topbot > * {
+				border-style: solid none none none;	
 			}
 
 		.row.sp p, .row.sp h2 {
@@ -2286,9 +2297,21 @@ input, select, textarea {
 	.frame {
 		border: solid;
 		border-width: 1px;
-		background-color: #ffffff;
+		background-color: inherit;
 		padding: 20px;
 	}
+
+		.frame.white {
+			background-color: #ffffff;
+		}
+
+		.frame.dark {
+			background-color: #f2f5f3;
+		}
+
+		.frame.top {
+			border-style: solid none none none;
+		}
 
 /* Telemtry cards */
 
@@ -2319,7 +2342,7 @@ input, select, textarea {
       color: #1f2a37;
       line-height: 1.15;
     }
-	
+
 /* Icons */
 
 	.icon {

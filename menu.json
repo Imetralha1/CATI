@@ -30,7 +30,7 @@
         "children": [
           { "name": "limiar1", "link": "limiar1.html" },
           { "name": "limiar2", "link": "limiar2.html" },
-          { "name": "limiar3", "link": "limiar3.html", "status": "not available" }
+          { "name": "limiar3", "link": "limiar3.html" }
         ]
       },
       { "name": "roda de água", "link": "roda-de-agua.html", "status": "not available" }

@@ -83,7 +83,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #f2f5f3;
+		background: #f3f3f3;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -100,7 +100,7 @@ input, select, textarea {
 	body, input, textarea, select {
 		font-family: 'Open Sans', sans-serif;
 		font-weight: 400;
-		color: #6b7770;
+		color: #6b7777;
 		font-size: 13pt;
 		line-height: 2em;
 	}
@@ -110,7 +110,7 @@ input, select, textarea {
 		font-family: 'Open Sans ', sans-serif;
 		font-weight: 700;
 		
-		color: #6b7770;
+		color: #6b7777;
 		margin: 0 0 0.5em 0;
 		line-height: 1.3;
 	}
@@ -167,7 +167,7 @@ input, select, textarea {
 
 	b, strong {
 		font-weight: 700;
-		color: #6b7770;
+		color: #6b7777;
 	}
 
 	i, em {
@@ -225,7 +225,7 @@ input, select, textarea {
 		}
 
 	section.dark {
-		background-color: #e5e7e9 !important;
+		background-color: #e5e5e9 !important;
 	}
 
 /* Container */
@@ -1853,7 +1853,7 @@ input, select, textarea {
 		text-align: center;
 	}
 		.button.white {
-			background-color: #f2f5f3;
+			background-color: #f3f3f3;
 			border: #303030 solid 1px; 
 			color: #303030;
 		}
@@ -2001,7 +2001,7 @@ input, select, textarea {
 			}
 
 				ul.contact li a:before {
-					color: #f2f5f3;
+					color: #f3f3f3;
 					font-size: 32px;
 					line-height: 48px;
 				}
@@ -2147,7 +2147,7 @@ input, select, textarea {
 		font-family: 'Open Sans Condensed', sans-serif;
 		font-weight: 700;
 		text-transform: uppercase;
-		color: #6b7770;
+		color: #6b7777;
 	}
 
 	form input[type="text"],
@@ -2232,7 +2232,7 @@ input, select, textarea {
 				font-family: 'Open Sans Condensed', sans-serif;
 				font-weight: 700;
 				text-transform: uppercase;
-				color: #6b7770;
+				color: #6b7777;
 			}
 
 			table.default thead {
@@ -2317,11 +2317,11 @@ input, select, textarea {
 	}
 
 		.frame.white {
-			background-color: #f2f5f3;
+			background-color: #f3f3f3;
 		}
 
 		.frame.dark {
-			background-color: #e5e7e9;
+			background-color: #e5e5e9;
 		}
 
 		.frame.top {
@@ -2490,7 +2490,7 @@ input, select, textarea {
 				position: relative;
 				display: block;
 				text-decoration: none;
-				color: #6b7770;
+				color: #6b7777;
 				top: -6px;
 				padding: 6px 1.5em 0.25em 1.5em;
 				border-bottom-left-radius: 6px;
@@ -2524,7 +2524,7 @@ input, select, textarea {
 
 	.dropotron {
 		list-style: none;
-		background: #6B7770;
+		background: #6b7777;
 		color: #fff;
 		border-radius: 6px;
 		line-height: 2.75em;
@@ -2586,7 +2586,7 @@ input, select, textarea {
 				left: 50%;
 				margin-left: -1em;
 				top: -0.65em;
-				border-bottom: solid 1em #6B7770;
+				border-bottom: solid 1em #6b7777;
 				border-left: solid 1em transparent;
 				border-right: solid 1em transparent;
 			}
@@ -2707,7 +2707,7 @@ body{
 /* Main */
 
 	#main {
-		background: #f2f5f3;
+		background: #f3f3f3;
 	
 		border-top-width: 35px;
 		border-bottom-width: 10px;
@@ -2738,7 +2738,7 @@ body{
 		text-align: center;
 		padding: 8em 0 8em 0;
 		border-top: solid 10px #c1cac5;
-		background: #e5e7e9;
+		background: #e5e5e9;
 		
 	}
 
@@ -2751,7 +2751,7 @@ body{
 		}
 
 			#footer h2.major span {
-				background: #e5e7e9;
+				background: #e5e5e9;
 			}
 
 /* Copyright */

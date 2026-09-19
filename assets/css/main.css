@@ -224,6 +224,10 @@ input, select, textarea {
 			margin-bottom: 0;
 		}
 
+	section.dark {
+		background-color: #e5e7e9 !important;
+	}
+
 /* Container */
 
 	.container {
@@ -2313,11 +2317,11 @@ input, select, textarea {
 	}
 
 		.frame.white {
-			background-color: #ffffff;
+			background-color: #f2f5f3;
 		}
 
 		.frame.dark {
-			background-color: #f2f5f3;
+			background-color: #e5e7e9;
 		}
 
 		.frame.top {
@@ -2703,7 +2707,7 @@ body{
 /* Main */
 
 	#main {
-		background: #fff;
+		background: #f2f5f3;
 	
 		border-top-width: 35px;
 		border-bottom-width: 10px;

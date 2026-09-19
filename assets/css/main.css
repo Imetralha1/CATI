@@ -2738,6 +2738,7 @@ body{
 		text-align: center;
 		padding: 8em 0 8em 0;
 		border-top: solid 10px #c1cac5;
+		background: #e5e7e9;
 		
 	}
 
@@ -2750,7 +2751,7 @@ body{
 		}
 
 			#footer h2.major span {
-				background: #f2f5f3;
+				background: #e5e7e9;
 			}
 
 /* Copyright */

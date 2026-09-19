@@ -1879,7 +1879,7 @@ input, select, textarea {
 		input[type="reset"].alt,
 		button.alt,
 		.button.alt {
-			background: #c1cac5;
+			background: #c1c5c5;
 		}
 
 			input[type="button"].alt:hover,
@@ -1996,7 +1996,7 @@ input, select, textarea {
 				height: 48px;
 				border-radius: 6px;
 				outline: 0;
-				background: #c1cac5;
+				background: #c1c5c5;
 				text-align: center;
 			}
 
@@ -2071,7 +2071,7 @@ input, select, textarea {
 					transition: background-color .2s ease-in-out;
 					display: block;
 					text-align: center;
-					background: #c1cac5;
+					background: #c1c5c5;
 					border-radius: 100%;
 					width: 2.25em;
 					height: 2.25em;
@@ -2435,7 +2435,7 @@ input, select, textarea {
 
 			#header .logo p {
 				display: inline;
-				color: #C1CAC5;
+				color: #c1c5c5;
 			}
 
 /* Nav */
@@ -2503,12 +2503,12 @@ input, select, textarea {
 			}
 
 			#nav li:hover a, #nav li:hover span {
-				background: #C1CAC5;
+				background: #C1C5C5;
 				color: #fff;
 			}
 
 			#nav li.active a, #nav li.active span {
-				background: #C1CAC5;
+				background: #C1C5C5;
 				color: #fff;
 			}
 
@@ -2737,7 +2737,7 @@ body{
 	#footer {
 		text-align: center;
 		padding: 8em 0 8em 0;
-		border-top: solid 10px #c1cac5;
+		border-top: solid 10px #c1c5c5;
 		background: #e5e5e9;
 		
 	}
@@ -2774,7 +2774,7 @@ body{
 		}
 
 			#copyright .menu li {
-				border-color: #C1CAC5;
+				border-color: #c1c5c5;
 				border-width: 2px;
 				line-height: 1em;
 			}

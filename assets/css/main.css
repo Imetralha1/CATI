@@ -353,7 +353,7 @@ input, select, textarea {
 			}
 
 		.row.sp p, .row.sp h2 {
-		margin-bottom: 0;
+			margin-bottom: 0;
 		}
 
 		.row > .imp {
@@ -988,54 +988,54 @@ input, select, textarea {
 						}
 
 				.row {
-					margin-top: -40px;
-					margin-left: -40px;
+					margin-top: -50px;
+					margin-left: -50px;
 				}
 
 					.row > * {
-						padding: 40px 0 0 40px;
+						padding: 50px 0 0 50px;
 					}
 
 					.row.gtr-uniform {
-						margin: -20px;
+						margin: -25px;
 					}
 
 						.row.gtr-uniform > * {
-							padding: 20px;
+							padding: 25px;
 						}
 
 				.row.gtr-150 {
-					margin-top: -60px;
-					margin-left: -60px;
+					margin-top: -75px;
+					margin-left: -75px;
 				}
 
 					.row.gtr-150 > * {
-						padding: 60px 0 0 60px;
+						padding: 75px 0 0 75px;
 					}
 
 					.row.gtr-150.gtr-uniform {
-						margin: -30px;
+						margin: -37.5px;
 					}
 
 						.row.gtr-150.gtr-uniform > * {
-							padding: 30px;
+							padding:37.5px;
 						}
 
 				.row.gtr-200 {
-					margin-top: -80px;
-					margin-left: -80px;
+					margin-top: -100px;
+					margin-left: -100px;
 				}
 
 					.row.gtr-200 > * {
-						padding: 80px 0 0 80px;
+						padding: 100px 0 0 100px;
 					}
 
 					.row.gtr-200.gtr-uniform {
-						margin: -40px;
+						margin: -50px;
 					}
 
 						.row.gtr-200.gtr-uniform > * {
-							padding: 40px;
+							padding: 50px;
 						}
 
 		}
@@ -1228,57 +1228,60 @@ input, select, textarea {
 							padding: 12.5px;
 						}
 
+
 				.row {
-					margin-top: -50px;
-					margin-left: -50px;
+					margin-top: -40px;
+					margin-left: -40px;
 				}
 
 					.row > * {
-						padding: 50px 0 0 50px;
+						padding: 40px 0 0 40px;
 					}
 
 					.row.gtr-uniform {
-						margin: -25px;
+						margin: -20px;
 					}
 
 						.row.gtr-uniform > * {
-							padding: 25px;
+							padding: 20px;
 						}
 
 				.row.gtr-150 {
-					margin-top: -75px;
-					margin-left: -75px;
+					margin-top: -60px;
+					margin-left: -60px;
 				}
 
 					.row.gtr-150 > * {
-						padding: 75px 0 0 75px;
+						padding: 60px 0 0 60px;
 					}
 
 					.row.gtr-150.gtr-uniform {
-						margin: -37.5px;
+						margin: -30px;
 					}
 
 						.row.gtr-150.gtr-uniform > * {
-							padding:37.5px;
+							padding: 30px;
 						}
 
 				.row.gtr-200 {
-					margin-top: -100px;
-					margin-left: -100px;
+					margin-top: -80px;
+					margin-left: -80px;
 				}
 
 					.row.gtr-200 > * {
-						padding: 100px 0 0 100px;
+						padding: 80px 0 0 80px;
 					}
 
 					.row.gtr-200.gtr-uniform {
-						margin: -50px;
+						margin: -40px;
 					}
 
 						.row.gtr-200.gtr-uniform > * {
-							padding: 50px;
+							padding: 40px;
 						}
 
+
+				
 		}
 
 		@media screen and (max-width: 736px) {
@@ -1842,6 +1845,11 @@ input, select, textarea {
 		padding: 0.85em 1.85em;
 		text-align: center;
 	}
+		.button.white {
+			background-color: #f2f5f3;
+			border: #303030 solid 1px; 
+			color: #303030;
+		}
 
 		input[type="button"]:hover,
 		input[type="submit"]:hover,

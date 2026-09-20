@@ -36,7 +36,10 @@
 			const marked = path ? markActive(menu, path) : menu;
 
 			const nav = document.getElementById("nav");
-			nav.innerHTML = "";
+			nav.innerHTML =
+				'<a class="nav-logo" href="index.html" aria-label="CATI home">' +
+					'<img src="../logoCATI.svg" alt="CATI">' +
+				'</a>';
 
 			const ul = buildMenu(marked);
 			nav.appendChild(ul);
@@ -68,7 +71,11 @@
 				$(
 					'<div id="titleBar">' +
 						'<a href="#navPanel" class="toggle"></a>' +
-						'<span class="title">' + ($('#logo').html() || 'CATI') + '</span>' +
+						'<span class="title">' + 				
+							'<a class="nav-logo" href="index.html" aria-label="CATI home">' +
+								'<img src="../LogoCATI-dark.svg" alt="CATI">' +
+							'</a>' + 
+						'</span>' +
 					'</div>'
 				)
 					.appendTo($body);
